@@ -4,44 +4,44 @@ using System.Text;
 
 namespace ServiceTool.Logic
 {
-    public static class Company
+    public class Company
     {
-        public static string Name { get; private set; }
-        public static bool Active { get; private set; }
+        public string Name { get; private set; }
+        public bool Active { get; private set; }
 
-        private static List<Case> cases = new List<Case>();
+        //private List<Case> cases = new List<Case>();
 
-        public static List<Case> GetCases()
+        public List<Case> GetCases()
         {
             throw new NotImplementedException();
         }
 
-        public static List<CustomerUser> GetCustomerUsers()
+        public List<CustomerUser> GetCustomerUsers()
         {
             throw new NotImplementedException();
         }
 
-        public static void DeleteCustomerUser()
+        public void DeleteCustomerUser()
         {
             throw new NotImplementedException();
         }
 
-        public static Case GetCaseById(int id)
+        public Case GetCaseById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public static void NewCase()
+        public void NewCase()
         {
             throw new NotImplementedException();
         }
 
-        public static void NewCustomer()
+        public void NewCustomer()
         {
             throw new NotImplementedException();
         }
 
-        public static CustomerUser GetCustomerUserById(int id)
+        public CustomerUser GetCustomerUserById(int id)
         {
             throw new NotImplementedException();
         }

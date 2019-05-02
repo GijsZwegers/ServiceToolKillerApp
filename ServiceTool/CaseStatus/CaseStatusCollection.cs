@@ -6,16 +6,16 @@ using System.Text;
 
 namespace ServiceTool.Logic
 {
-    public class CaseStatusCollection
+    public static class CaseStatusCollection
     {
-        public ICaseStatusCollectionDAL caseStatusCollectionDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
+        public static ICaseStatusCollectionDAL caseStatusCollectionDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
 
-        public void NewCaseStatus(CaseStatusStruct caseStatus)
+        public static void NewCaseStatus(CaseStatusStruct caseStatus)
         {
             caseStatusCollectionDAL.NewCaseStatus(caseStatus);
         }
 
-        public List<CaseStatus> GetAll()
+        public static List<CaseStatus> GetAll()
         {
             List<CaseStatus> caseStatuses = new List<CaseStatus>();
             foreach (CaseStatusStruct caseStatus in caseStatusCollectionDAL.GetAll())
@@ -25,7 +25,7 @@ namespace ServiceTool.Logic
             return caseStatuses;
         }
 
-        public void RemoveCaseStatus(int id)
+        public static void RemoveCaseStatus(int id)
         {
             caseStatusCollectionDAL.RemoveCaseStatus(id);
         }
