@@ -6,6 +6,8 @@ namespace ServiceTool.DAL.Interface
 {
     public interface ICaseStatusCollectionDAL
     {
-
+        void NewCaseStatus(CaseStatusStruct caseStatus);
+        List<CaseStatusStruct> GetAll();
+        void RemoveCaseStatus(int id);
     }
 }

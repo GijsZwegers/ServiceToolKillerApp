@@ -11,5 +11,10 @@ namespace ServiceTool.DAL.Factory
         {
             return new CaseStatusDAL();
         }
+
+        public static ICaseStatusCollectionDAL CreateCaseStatusCollectionDAL()
+        {
+            return new CaseStatusDAL();
+        }
     }
 }
