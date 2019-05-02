@@ -6,6 +6,6 @@ namespace ServiceTool.DAL.Interface
 {
     public interface ICaseStatusDAL
     {
-        void Update(CaseStatusStruct caseStatus);
+        void Update(int id, CaseStatusStruct caseStatus);
     }
 }

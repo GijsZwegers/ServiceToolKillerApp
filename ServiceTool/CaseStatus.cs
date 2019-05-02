@@ -6,6 +6,7 @@ namespace ServiceTool.Logic
 {
     public class CaseStatus
     {
+        public int Id { get; private set; }
         public string Description { get; private set; }
         public ICaseStatusDAL CaseStatusDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusDAL();
 
@@ -14,9 +15,9 @@ namespace ServiceTool.Logic
             this.Description = caseStatusStruct.Description;
         }
 
-        public void Update(CaseStatusStruct newCaseStatus)
+        public void Update(int caseId, CaseStatusStruct newCaseStatus)
         {
-            CaseStatusDAL.Update(newCaseStatus);
+            CaseStatusDAL.Update(caseId, newCaseStatus);
         }
     }
 }

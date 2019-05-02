@@ -12,7 +12,7 @@ namespace ServiceTool.Logic
         public CaseStatusStruct CaseStatus { get; private set; }
         public string Comment { get; private set; }
         public bool Active { get; private set; }
-        public ICaseDAL caseDAL { get; private set; } = CaseFactory.CreateCaseDAL();
+        public ICaseDAL CaseDAL { get; private set; } = CaseFactory.CreateCaseDAL();
 
         public Case(CaseStruct caseStruct)
         {
@@ -24,19 +24,19 @@ namespace ServiceTool.Logic
 
         public Case Get()
         {
-            CaseStruct caseStruct = caseDAL.Get();
+            CaseStruct caseStruct = CaseDAL.Get();
             return new Case(caseStruct);
         }
 
         public void Close()
         {
-            caseDAL.Close(this.CaseNumber);
+            CaseDAL.Close(this.CaseNumber);
         }
 
         public bool UpdateStatus(string caseNumber, CaseStatus caseStatus)
         {
             CaseStatusStruct caseStatusStruct = new CaseStatusStruct(caseStatus.Description);
-            return caseDAL.UpdateStatus(CaseNumber, caseStatusStruct);
+            return CaseDAL.UpdateStatus(CaseNumber, caseStatusStruct);
         }
     }
 }

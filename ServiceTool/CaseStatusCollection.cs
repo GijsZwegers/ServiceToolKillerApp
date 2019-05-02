@@ -8,17 +8,17 @@ namespace ServiceTool.Logic
 {
     public static class CaseStatusCollection
     {
-        public static ICaseStatusCollectionDAL caseStatusCollectionDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
+        public static ICaseStatusCollectionDAL CaseStatusCollectionDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
 
         public static void NewCaseStatus(CaseStatusStruct caseStatus)
         {
-            caseStatusCollectionDAL.NewCaseStatus(caseStatus);
+            CaseStatusCollectionDAL.NewCaseStatus(caseStatus);
         }
 
         public static List<CaseStatus> GetAll()
         {
             List<CaseStatus> caseStatuses = new List<CaseStatus>();
-            foreach (CaseStatusStruct caseStatus in caseStatusCollectionDAL.GetAll())
+            foreach (CaseStatusStruct caseStatus in CaseStatusCollectionDAL.GetAll())
             {
                 caseStatuses.Add(new CaseStatus(caseStatus));
             }
@@ -27,7 +27,7 @@ namespace ServiceTool.Logic
 
         public static void RemoveCaseStatus(int id)
         {
-            caseStatusCollectionDAL.RemoveCaseStatus(id);
+            CaseStatusCollectionDAL.RemoveCaseStatus(id);
         }
     }
 }

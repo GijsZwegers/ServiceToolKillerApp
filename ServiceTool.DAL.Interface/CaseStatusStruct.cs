@@ -6,10 +6,19 @@ namespace ServiceTool.DAL.Interface
 {
     public struct CaseStatusStruct
     {
+        public int Id { get; private set; }
         public string Description { get; private set; }
+
+
+        public CaseStatusStruct(int id, string description)
+        {
+            this.Id = id;
+            this.Description = description;
+        }
 
         public CaseStatusStruct(string description)
         {
+            this.Id = 0;
             this.Description = description;
         }
     }
