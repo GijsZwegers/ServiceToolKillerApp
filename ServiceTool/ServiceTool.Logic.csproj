@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceTool.DAL.Factory\ServiceTool.DAL.Factory.csproj" />
+    <ProjectReference Include="..\ServiceTool.DAL.Interface\ServiceTool.DAL.Interface.csproj" />
+  </ItemGroup>
+
+</Project>
