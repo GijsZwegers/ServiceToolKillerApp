@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.SqlContext
 {
     public class ServiceUserDAL : IServiceUser
     {
