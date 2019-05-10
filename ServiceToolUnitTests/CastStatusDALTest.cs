@@ -19,7 +19,7 @@ namespace ServiceTool.UnitTests
             List<CaseStatus> caseStatuses = CaseStatusCollection.GetAll();
 
             //assert
-            Assert.IsTrue(caseStatuses.Count() != 0);
+            Assert.AreNotEqual(caseStatuses.Count() , 0);
         }
 
         [TestMethod]
@@ -50,9 +50,9 @@ namespace ServiceTool.UnitTests
             CountOfCaseStatusesAfterRemoving = CaseStatusCollection.GetAll().Count();
 
             //assert
-            Assert.IsTrue(CountOfCaseStatusesBeforeAdding + 1 == CountOfCaseStatusesAfterAdding, "The CaseStatus isn't added to the databse");
-            Assert.IsTrue(caseStatusStructs[CountOfCaseStatusesAfterAdding - 1].Description == testCaseStatusStruct.Description, "The last casestatus description doesn't match the inputted CaseStatus");
-            Assert.IsTrue(CountOfCaseStatusesAfterRemoving == CountOfCaseStatusesBeforeAdding, "The Case status isn't removed from the database");
+            Assert.AreEqual(CountOfCaseStatusesBeforeAdding + 1 , CountOfCaseStatusesAfterAdding, "The CaseStatus isn't added to the databse");
+            Assert.AreEqual(caseStatusStructs[CountOfCaseStatusesAfterAdding - 1].Description, testCaseStatusStruct.Description, "The last casestatus description doesn't match the inputted CaseStatus");
+            Assert.AreEqual(CountOfCaseStatusesAfterRemoving , CountOfCaseStatusesBeforeAdding, "The Case status isn't removed from the database");
         }
 
         [TestMethod]

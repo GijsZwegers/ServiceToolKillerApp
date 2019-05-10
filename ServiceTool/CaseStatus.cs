@@ -10,10 +10,10 @@ namespace ServiceTool.Logic
         public string Description { get; private set; }
         public ICaseStatusDAL CaseStatusDAL { get; set; } = CaseStatusFactory.CreateCaseStatusDAL();
 
-        public CaseStatus(ICaseStatusDAL caseStatusDAL)
-        {
-            CaseStatusDAL = caseStatusDAL;
-        }
+        //public CaseStatus(ICaseStatusDAL caseStatusDAL)
+        //{
+        //    CaseStatusDAL = caseStatusDAL;
+        //}
 
         public CaseStatus()
         {}
