@@ -20,6 +20,7 @@ namespace ServiceTool.Logic
 
         public CaseStatus(CaseStatusStruct caseStatusStruct)
         {
+            this.Id = caseStatusStruct.Id;
             this.Description = caseStatusStruct.Description;
         }
 

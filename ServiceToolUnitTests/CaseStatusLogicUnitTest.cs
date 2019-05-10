@@ -37,7 +37,15 @@ namespace ServiceTool.UnitTest
 
             //assert
             //Check if lists are the same
-            Assert.AreEqual(caseStatuses, caseStatusMemoryContext.caseStatusStructs);
+            Assert.AreEqual(caseStatuses.Count, caseStatusMemoryContext.caseStatusStructs.Count);
+
+            for (int i = 0; i < caseStatuses.Count; i++)
+            {
+                Assert.AreEqual(caseStatuses[i].Description, caseStatusMemoryContext.caseStatusStructs[i].Description);
+                Assert.AreEqual(caseStatuses[i].Id, caseStatusMemoryContext.caseStatusStructs[i].Id);
+            }
+            
+            //Assert.AreEqual(caseStatuses, caseStatusMemoryContext.caseStatusStructs);
         }
 
         [TestMethod]
@@ -64,25 +72,22 @@ namespace ServiceTool.UnitTest
         }
 
         [TestMethod]
-        public void Try_To_Remove_A_New_CaseStatus()
+        public void Try_To_Remove_A_CaseStatus()
         {
             ////arrange
-            //CaseStatusCollection.CaseStatusCollectionDAL = CaseStatusTestFactory.CreateCaseStatusCollectionTestDAL();
-            //CaseStatusMemoryContext caseStatusMemoryContext = new CaseStatusMemoryContext();
-            //List<CaseStatus> caseStatusesBeforeAdding = new List<CaseStatus>();
-            //List<CaseStatus> caseStatusesAfterAdding = new List<CaseStatus>();
-            //CaseStatus lastCaseStatus = new CaseStatus();
+            CaseStatusMemoryContext caseStatusMemoryContext = new CaseStatusMemoryContext();
+            List<CaseStatus> caseStatusesBeforeRemoving = new List<CaseStatus>();
+            List<CaseStatus> caseStatusesAfterRemoving = new List<CaseStatus>();
+            int CaseStatusToBeRemovedId = 2;
 
             ////act
-            //caseStatusesBeforeAdding = CaseStatusCollection.GetAll();
-            //CaseStatusCollection.NewCaseStatus(newCaseStatus);
-            //caseStatusesAfterAdding = CaseStatusCollection.GetAll();
-            //lastCaseStatus = CaseStatusCollection.GetAll().LastOrDefault();
+            caseStatusesBeforeRemoving = CaseStatusCollection.GetAll();
+            CaseStatusCollection.RemoveCaseStatus(CaseStatusToBeRemovedId);
+            caseStatusesAfterRemoving = CaseStatusCollection.GetAll();
 
             ////assert
-            //Assert.AreNotEqual(caseStatusesBeforeAdding, caseStatusesAfterAdding);
-            //Assert.AreEqual(4, caseStatusesAfterAdding.Count);
-            //Assert.AreEqual(lastCaseStatus.Description, new CaseStatus(newCaseStatus).Description);
+            Assert.AreNotEqual(caseStatusesBeforeRemoving, caseStatusesAfterRemoving);
+            Assert.AreEqual(2, caseStatusesAfterRemoving.Count);
         }
     }
 }
