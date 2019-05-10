@@ -13,7 +13,7 @@ namespace ServiceTool.DAL.SqlContext
         /// Dal moet nog worden geimplementeerd
         /// </summary>
         
-        const string connectionstring = @"Data Source=TEUNZWEGERS;Initial Catalog=ServiceTool;Integrated Security=True";
+        const string connectionstring = @"Data Source=DESKTOPTHINKPAD;Initial Catalog=ServiceTool;Integrated Security=True";
 
         private SqlConnection conn;
 

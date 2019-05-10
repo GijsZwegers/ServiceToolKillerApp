@@ -8,7 +8,7 @@ namespace ServiceTool.Logic
 {
     public static class CaseStatusCollection
     {
-        public static ICaseStatusCollectionDAL CaseStatusCollectionDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
+        public static ICaseStatusCollectionDAL CaseStatusCollectionDAL { get; set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
 
         public static void NewCaseStatus(CaseStatusStruct caseStatus)
         {

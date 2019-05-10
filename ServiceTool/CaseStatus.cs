@@ -8,7 +8,15 @@ namespace ServiceTool.Logic
     {
         public int Id { get; private set; }
         public string Description { get; private set; }
-        public ICaseStatusDAL CaseStatusDAL { get; private set; } = CaseStatusFactory.CreateCaseStatusDAL();
+        public ICaseStatusDAL CaseStatusDAL { get; set; } = CaseStatusFactory.CreateCaseStatusDAL();
+
+        public CaseStatus(ICaseStatusDAL caseStatusDAL)
+        {
+            CaseStatusDAL = caseStatusDAL;
+        }
+
+        public CaseStatus()
+        {}
 
         public CaseStatus(CaseStatusStruct caseStatusStruct)
         {

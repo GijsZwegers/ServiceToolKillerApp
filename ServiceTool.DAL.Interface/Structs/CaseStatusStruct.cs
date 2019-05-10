@@ -7,7 +7,7 @@ namespace ServiceTool.DAL.Interface
     public struct CaseStatusStruct
     {
         public int Id { get; private set; }
-        public string Description { get; private set; }
+        public string Description { get; set; }
 
 
         public CaseStatusStruct(int id, string description)
