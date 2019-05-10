@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceTool.DAL.Interface\ServiceTool.DAL.Interface.csproj" />
-    <ProjectReference Include="..\ServiceTool.DAL\ServiceTool.DAL.csproj" />
+    <ProjectReference Include="..\ServiceTool.DAL\ServiceTool.SqlContext.csproj" />
   </ItemGroup>
 
 </Project>

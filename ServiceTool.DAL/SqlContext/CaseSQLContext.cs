@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.SqlContext
 {
     public class CaseSQLContext : ICaseContext
     {

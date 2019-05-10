@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServiceTool.DAL\ServiceTool.DAL.csproj" />
+    <ProjectReference Include="..\ServiceTool.DAL\ServiceTool.SqlContext.csproj" />
     <ProjectReference Include="..\ServiceTool\ServiceTool.Logic.csproj" />
   </ItemGroup>
 

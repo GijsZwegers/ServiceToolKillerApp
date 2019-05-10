@@ -10,15 +10,6 @@ namespace ServiceTool.UnitTests
     [TestClass]
     public class CastStatusDALTest
     {
-        //const string connectionstring = @"Data Source=TEUNZWEGERS;Initial Catalog=ServiceTool;Integrated Security=True";
-
-        //private SqlConnection conn;
-
-        //private SqlConnection GetConnection()
-        //{
-        //    return conn = new SqlConnection(connectionstring);
-        //}
-        
         [TestMethod]
         public void Try_Get_All_CaseStatuses()
         {
@@ -32,7 +23,7 @@ namespace ServiceTool.UnitTests
         }
 
         [TestMethod]
-        public void Try_To_Add_And_Then_Remove_Case()
+        public void Try_To_Add_And_Then_Remove_CaseStatus()
         {
             //arrange
             int CountOfCaseStatusesBeforeAdding;
@@ -59,9 +50,52 @@ namespace ServiceTool.UnitTests
             CountOfCaseStatusesAfterRemoving = CaseStatusCollection.GetAll().Count();
 
             //assert
-            Assert.IsTrue(CountOfCaseStatusesBeforeAdding + 1 == CountOfCaseStatusesAfterAdding);
-            Assert.IsTrue(caseStatusStructs[CountOfCaseStatusesAfterAdding - 1].Description == testCaseStatusStruct.Description);
-            Assert.IsTrue(CountOfCaseStatusesAfterRemoving == CountOfCaseStatusesBeforeAdding);
+            Assert.IsTrue(CountOfCaseStatusesBeforeAdding + 1 == CountOfCaseStatusesAfterAdding, "The CaseStatus isn't added to the databse");
+            Assert.IsTrue(caseStatusStructs[CountOfCaseStatusesAfterAdding - 1].Description == testCaseStatusStruct.Description, "The last casestatus description doesn't match the inputted CaseStatus");
+            Assert.IsTrue(CountOfCaseStatusesAfterRemoving == CountOfCaseStatusesBeforeAdding, "The Case status isn't removed from the database");
+        }
+
+        [TestMethod]
+        public void Try_To_Add_Then_Update_And_Then_Remove_A_Case_Status()
+        {
+            //arrange
+            int CountOfCaseStatusesBeforeAdding;
+            int CountOfCaseStatusesAfterAdding;
+            int CountOfCaseStatusesAfterRemoving;
+            int lastid;
+            string newDescription = "De beschrijving van de CaseStatus is geüpdated";
+
+            CaseStatusStruct testCaseStatusStruct = new CaseStatusStruct("Dit is een test status");
+            List<CaseStatus> casestatuses = new List<CaseStatus>();
+            CaseStatus updatedCaseStatus = new CaseStatus(testCaseStatusStruct);
+
+            //act
+            //Before adding
+            CountOfCaseStatusesBeforeAdding = CaseStatusCollection.GetAll().Count();
+
+            //Adding
+            CaseStatusCollection.NewCaseStatus(testCaseStatusStruct);
+            List<CaseStatus> caseStatuses = CaseStatusCollection.GetAll();
+            CountOfCaseStatusesAfterAdding = caseStatuses.Count();
+
+            lastid = caseStatuses.Max(o => o.Id);
+
+            //Updating
+            CaseStatus caseStatus = caseStatuses.Where(o => o.Id == lastid).First();
+            caseStatus.Update(new CaseStatusStruct(newDescription));
+            updatedCaseStatus = CaseStatusCollection.GetAll().Where(o => o.Id == lastid).First();
+
+
+            //Removing
+            CaseStatusCollection.RemoveCaseStatus(lastid);
+            CountOfCaseStatusesAfterRemoving = CaseStatusCollection.GetAll().Count();
+
+            //assert
+            Assert.IsTrue(CountOfCaseStatusesBeforeAdding + 1 == CountOfCaseStatusesAfterAdding, "The CaseStatus isn't added to the databse");
+            Assert.IsTrue(caseStatuses[CountOfCaseStatusesAfterAdding - 1].Description == testCaseStatusStruct.Description, "The last casestatus description doesn't match the inputted CaseStatus");
+            Assert.IsTrue(CountOfCaseStatusesAfterRemoving == CountOfCaseStatusesBeforeAdding, "The Case status isn't removed from the database");
+            Assert.IsTrue(updatedCaseStatus.Description == newDescription);
+            Assert.IsFalse(updatedCaseStatus.Description == testCaseStatusStruct.Description, "De beschrijvingen zijn hetzelfde en dus niet gewijzigd.");
         }
     }
 }

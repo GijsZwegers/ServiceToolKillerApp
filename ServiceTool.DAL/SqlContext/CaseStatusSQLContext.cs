@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.SqlContext
 {
     public class CaseStatusSQLContext : ICaseStatusContext
     {

@@ -15,9 +15,9 @@ namespace ServiceTool.Logic
             this.Description = caseStatusStruct.Description;
         }
 
-        public void Update(int caseId, CaseStatusStruct newCaseStatus)
+        public void Update(CaseStatusStruct newCaseStatus)
         {
-            CaseStatusDAL.Update(caseId, newCaseStatus);
+            CaseStatusDAL.Update(this.Id, newCaseStatus);
         }
     }
 }

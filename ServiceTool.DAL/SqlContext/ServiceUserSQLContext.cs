@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using ServiceTool.DAL.ContextInterfaces;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.SqlContext
 {
     public class ServiceUserSQLContext : IServiceUserContext
     {
