@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.Logic", "ServiceTool\ServiceTool.Logic.csproj", "{D407C91F-E610-4C87-8A69-DF051E3AEDE7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.SqlContext", "ServiceTool.DAL\ServiceTool.SqlContext.csproj", "{46093477-A190-4E1C-A97E-CF31E47E8F7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.DAL", "ServiceTool.DAL\ServiceTool.DAL.csproj", "{46093477-A190-4E1C-A97E-CF31E47E8F7D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.DAL.Interface", "ServiceTool.DAL.Interface\ServiceTool.DAL.Interface.csproj", "{9574F93B-47B5-4045-B43B-2FF89B594DFB}"
 EndProject

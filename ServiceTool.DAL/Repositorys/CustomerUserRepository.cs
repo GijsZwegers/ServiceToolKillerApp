@@ -17,22 +17,22 @@ namespace ServiceTool.DAL.Repositorys
 
         public int GetPin()
         {
-            throw new NotImplementedException();
+            return CustomerUserContext.GetPin();
         }
 
         public bool Login()
         {
-            throw new NotImplementedException();
+            return CustomerUserContext.Login();
         }
 
         public bool Logout()
         {
-            throw new NotImplementedException();
+            return CustomerUserContext.Logout();
         }
 
         public int ResetPin(int NewPin)
         {
-            throw new NotImplementedException();
+            return CustomerUserContext.ResetPin(NewPin);
         }
     }
 }

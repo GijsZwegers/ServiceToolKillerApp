@@ -10,38 +10,38 @@ namespace ServiceTool.DAL.Repositorys
     {
         private IServiceUserContext ServiceUserContext;
 
-        public ServiceUserRepository(IServiceUserContext serviceUserContext)
+        public ServiceUserRepository(IServiceUserContext serviceUserContext) 
         {
             ServiceUserContext = serviceUserContext;
         }
         public int GetPin()
         {
-            throw new NotImplementedException();
+            return ServiceUserContext.GetPin();
         }
 
         public int GetPinForCustomer(int CustomerId)
         {
-            throw new NotImplementedException();
+            return ServiceUserContext.GetPinForCustomer(CustomerId);
         }
 
         public bool Login()
         {
-            throw new NotImplementedException();
+            return ServiceUserContext.Login();
         }
 
         public bool Logout()
         {
-            throw new NotImplementedException();
+            return ServiceUserContext.Logout();
         }
 
         public bool ResetPin(int NewPin)
         {
-            throw new NotImplementedException();
+            return ServiceUserContext.ResetPin(NewPin);
         }
 
         public bool SetToInactive()
         {
-            throw new NotImplementedException();
+            return ServiceUserContext.SetToInactive();
         }
     }
 }

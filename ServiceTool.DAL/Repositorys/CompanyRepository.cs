@@ -17,27 +17,27 @@ namespace ServiceTool.DAL.Repositorys
 
         public void DeleteCustomerUserForCompany(int CompanyId, CustomerUserStruct CustomerUser)
         {
-            throw new NotImplementedException();
+            CompanyContext.DeleteCustomerUserForCompany(CompanyId, CustomerUser);
         }
 
         public List<CaseStruct> GetCasesForCompany(int CompanyId)
         {
-            throw new NotImplementedException();
+            return CompanyContext.GetCasesForCompany(CompanyId);
         }
 
         public CustomerUserStruct GetCustomerById(int id)
         {
-            throw new NotImplementedException();
+            return CompanyContext.GetCustomerById(id);
         }
 
         public List<CustomerUserStruct> GetCustomerUsersForCompany(int CompanyId)
         {
-            throw new NotImplementedException();
+            return CompanyContext.GetCustomerUsersForCompany(CompanyId);
         }
 
         public CustomerUserStruct NewCustomerUser(CustomerUserStruct NewCustomerUser)
         {
-            throw new NotImplementedException();
+            return CompanyContext.NewCustomerUser(NewCustomerUser);
         }
     }
 }

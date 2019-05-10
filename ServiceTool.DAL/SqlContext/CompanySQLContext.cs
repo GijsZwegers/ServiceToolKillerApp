@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceTool.SqlContext
+namespace ServiceTool.DAL.SqlContext
 {
     public class CompanySQLContext : ICompanyContext
     {

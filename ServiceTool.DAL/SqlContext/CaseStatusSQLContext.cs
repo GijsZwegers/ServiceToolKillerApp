@@ -1,10 +1,11 @@
-﻿using ServiceTool.DAL.Interface;
+﻿using ServiceTool.DAL;
+using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace ServiceTool.SqlContext
+namespace ServiceTool.DAL.SqlContext
 {
     public class CaseStatusSQLContext : ICaseStatusContext
     {

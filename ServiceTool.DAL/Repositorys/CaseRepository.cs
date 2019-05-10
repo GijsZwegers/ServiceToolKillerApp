@@ -17,17 +17,17 @@ namespace ServiceTool.DAL.Repositorys
 
         public void Close(string CaseNumber)
         {
-            throw new NotImplementedException();
+            CaseContext.Close(CaseNumber);
         }
 
         public CaseStruct Get()
         {
-            throw new NotImplementedException();
+            return CaseContext.Get();
         }
 
         public bool UpdateStatus(string CaseNumber, CaseStatusStruct caseStatusStruct)
         {
-            throw new NotImplementedException();
+            return CaseContext.UpdateStatus(CaseNumber, caseStatusStruct);
         }
     }
 }

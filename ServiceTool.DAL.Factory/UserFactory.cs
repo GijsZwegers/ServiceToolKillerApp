@@ -1,5 +1,6 @@
 ﻿using ServiceTool.DAL.Interface;
 using ServiceTool.DAL.Repositorys;
+using ServiceTool.DAL.SqlContext;
 using System;
 
 namespace ServiceTool.DAL.Factory
