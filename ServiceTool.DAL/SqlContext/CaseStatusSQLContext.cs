@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ServiceTool.DAL
 {
-    public class CaseStatusDAL : ICaseStatusDAL, ICaseStatusCollectionDAL
+    public class CaseStatusSQLContext : ICaseStatusContext
     {
         /// <summary>
         /// Dal moet nog worden geimplementeerd

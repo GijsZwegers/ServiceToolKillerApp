@@ -1,18 +1,20 @@
-﻿using ServiceTool.DAL.Interface;
+﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.DAL.Repositorys
 {
-    public class CompanyDAL : ICompanyDAL
+    public class CompanyRepository : ICompanyDAL
     {
-        /// <summary>
-        /// Not implemented yet
-        /// </summary>
-        /// <param name="CompanyId"></param>
-        /// <param name="CustomerUser"></param>
-        
+        private ICompanyContext CompanyContext;
+
+        public CompanyRepository(ICompanyContext companyContext)
+        {
+            CompanyContext = companyContext;
+        }
+
         public void DeleteCustomerUserForCompany(int CompanyId, CustomerUserStruct CustomerUser)
         {
             throw new NotImplementedException();

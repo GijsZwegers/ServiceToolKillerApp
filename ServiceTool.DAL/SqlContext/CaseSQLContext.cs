@@ -1,11 +1,12 @@
-﻿using ServiceTool.DAL.Interface;
+﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ServiceTool.DAL
 {
-    public class CaseDAL : ICaseDAL
+    public class CaseSQLContext : ICaseContext
     {
         /// <summary>
         /// Not yet implemented

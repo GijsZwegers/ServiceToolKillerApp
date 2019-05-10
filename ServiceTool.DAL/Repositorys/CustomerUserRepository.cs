@@ -1,12 +1,20 @@
-﻿using ServiceTool.DAL.Interface;
+﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.DAL.Repositorys
 {
-    public class CustomerUserDAL : ICustomerUser
+    public class CustomerUserRepository : ICustomerUser
     {
+        private ICustomerUserContext CustomerUserContext;
+
+        public CustomerUserRepository(ICustomerUserContext customerUserContext)
+        {
+            CustomerUserContext = customerUserContext;
+        }
+
         public int GetPin()
         {
             throw new NotImplementedException();
@@ -23,11 +31,6 @@ namespace ServiceTool.DAL
         }
 
         public int ResetPin(int NewPin)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SetToInactive()
         {
             throw new NotImplementedException();
         }

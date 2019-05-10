@@ -1,13 +1,19 @@
-﻿using ServiceTool.DAL.Interface;
+﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.SqlClient;
 
-namespace ServiceTool.DAL
+namespace ServiceTool.DAL.Repositorys
 {
-    public class ServiceUserDAL : IServiceUser
+    public class ServiceUserRepository : IServiceUser
     {
+        private IServiceUserContext ServiceUserContext;
+
+        public ServiceUserRepository(IServiceUserContext serviceUserContext)
+        {
+            ServiceUserContext = serviceUserContext;
+        }
         public int GetPin()
         {
             throw new NotImplementedException();

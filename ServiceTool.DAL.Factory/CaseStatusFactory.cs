@@ -9,12 +9,12 @@ namespace ServiceTool.DAL.Factory
     {
         public static ICaseStatusDAL CreateCaseStatusDAL()
         {
-            return new CaseStatusDAL();
+            return new CaseStatusRepository(new CaseStatusSQLContext());
         }
 
         public static ICaseStatusCollectionDAL CreateCaseStatusCollectionDAL()
         {
-            return new CaseStatusDAL();
+            return new CaseStatusRepository(new CaseStatusSQLContext());
         }
     }
 }

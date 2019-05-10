@@ -1,4 +1,5 @@
 ﻿using ServiceTool.DAL.Interface;
+using ServiceTool.DAL.Repositorys;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace ServiceTool.DAL.Factory
     {
         public static ICaseDAL CreateCaseDAL()
         {
-            return new CaseDAL();
+            return new CaseRepository(new CaseSQLContext());
         }
     }
 }

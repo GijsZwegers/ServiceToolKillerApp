@@ -1,4 +1,5 @@
 ﻿using ServiceTool.DAL.Interface;
+using ServiceTool.DAL.Repositorys;
 using System;
 
 namespace ServiceTool.DAL.Factory
@@ -7,12 +8,12 @@ namespace ServiceTool.DAL.Factory
     {
         public static ICustomerUser CreateCustomer()
         {
-            return new CustomerUserDAL();
+            return new CustomerUserRepository(new CustomerUserSQLContext());
         }
 
         public static IServiceUser CreateService()
         {
-            return new ServiceUserDAL();
+            return new ServiceUserRepository(new ServiceUserSQLContext());
         }
     }
 }
