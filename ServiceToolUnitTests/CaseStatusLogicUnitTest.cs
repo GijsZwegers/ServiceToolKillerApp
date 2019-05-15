@@ -20,15 +20,14 @@ namespace ServiceTool.UnitTest
             CaseStatusCollection.CaseStatusCollectionDAL = CaseStatusTestFactory.CreateCaseStatusCollectionTestDAL();
         }
 
-
         [TestMethod]
         public void Try_Get_All_CaseStatuses()
         {
             //arrange
             List<CaseStatus> caseStatuses = new List<CaseStatus>();
+
             //Setting the memory database 
             //NOT SURE IF THIS IS ACT
-            //CaseStatusCollection.CaseStatusCollectionDAL = CaseStatusTestFactory.CreateCaseStatusCollectionTestDAL();
             CaseStatusMemoryContext caseStatusMemoryContext = new CaseStatusMemoryContext();
 
             //act
@@ -41,10 +40,9 @@ namespace ServiceTool.UnitTest
 
             for (int i = 0; i < caseStatuses.Count; i++)
             {
-                Assert.AreEqual(caseStatuses[i].Description, caseStatusMemoryContext.caseStatusStructs[i].Description);
+                Assert.AreEqual(caseStatuses[i].Description, caseStatusMemoryContext.caseStatusStructs[i].Description, "");
                 Assert.AreEqual(caseStatuses[i].Id, caseStatusMemoryContext.caseStatusStructs[i].Id);
             }
-            
             //Assert.AreEqual(caseStatuses, caseStatusMemoryContext.caseStatusStructs);
         }
 
@@ -53,7 +51,6 @@ namespace ServiceTool.UnitTest
         {
             //arrange
             CaseStatusStruct newCaseStatus = new CaseStatusStruct("Toegevoegde CaseStatus");
-            //CaseStatusCollection.CaseStatusCollectionDAL = CaseStatusTestFactory.CreateCaseStatusCollectionTestDAL();
             CaseStatusMemoryContext caseStatusMemoryContext = new CaseStatusMemoryContext();
             List<CaseStatus> caseStatusesBeforeAdding = new List<CaseStatus>();
             List<CaseStatus> caseStatusesAfterAdding = new List<CaseStatus>();

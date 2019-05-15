@@ -7,7 +7,7 @@ namespace ServiceTool.DAL.ContextInterfaces
 {
     public interface ICaseContext
     {
-        CaseStruct Get();
+        CaseStruct Get(int id);
         void Close(string CaseNumber);
         bool UpdateStatus(string CaseNumber, CaseStatusStruct caseStatusStruct);
     }
