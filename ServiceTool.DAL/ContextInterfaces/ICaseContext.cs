@@ -9,6 +9,6 @@ namespace ServiceTool.DAL.ContextInterfaces
     {
         CaseStruct Get(int id);
         void Close(string CaseNumber);
-        bool UpdateStatus(string CaseNumber, CaseStatusStruct caseStatusStruct);
+        bool UpdateStatus(string CaseNumber, int idCaseStatus);
     }
 }

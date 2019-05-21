@@ -27,8 +27,7 @@ namespace ServiceTool.DAL.SqlContext
             using (GetConnection())
             {
                 conn.Open();
-                using (SqlCommand command = new SqlCommand("UPDATE Case(Active) " +
-                    "VALUES (false) WHERE CaseNumber ='" + CaseNumber, conn))
+                using (SqlCommand command = new SqlCommand("UPDATE [Case] SET [Case].Active = 0 WHERE CaseNumber ='" + CaseNumber, conn))
                 {
                     command.ExecuteNonQuery();  
                 }
@@ -38,10 +37,10 @@ namespace ServiceTool.DAL.SqlContext
 
         public CaseStruct Get(int id)
         {
-            CaseStruct cs = default;
+            CaseStruct cs = new CaseStruct();
             using (GetConnection())
             {
-                conn.Open();
+                //conn.Open();
 
                 using (GetConnection())
                 {
@@ -69,7 +68,7 @@ namespace ServiceTool.DAL.SqlContext
         }
 
         //Nadenken of ik dit niet beter een boolean kan maken en of ik aan de hand van het casenummer ga werken of aan de hand van het meegegeven ID
-        public bool UpdateStatus(string caseNumber, CaseStatusStruct caseStatusStruct)
+        public bool UpdateStatus(string caseNumber, int idCaseStatus)
         {
 
             throw new NotImplementedException();

@@ -22,9 +22,9 @@ namespace ServiceTool.Logic
             this.Active = caseStruct.Active;
         }
 
-        public Case Get()
+        public Case Get(int id)
         {
-            CaseStruct caseStruct = CaseDAL.Get();
+            CaseStruct caseStruct = CaseDAL.Get(id);
             return new Case(caseStruct);
         }
 
@@ -33,10 +33,10 @@ namespace ServiceTool.Logic
             CaseDAL.Close(this.CaseNumber);
         }
 
-        public bool UpdateStatus(string caseNumber, CaseStatus caseStatus)
+        public bool UpdateStatus(string caseNumber, int idCaseStatus)
         {
-            CaseStatusStruct caseStatusStruct = new CaseStatusStruct(caseStatus.Description);
-            return CaseDAL.UpdateStatus(CaseNumber, caseStatusStruct);
+            //CaseStatusStruct caseStatusStruct = new CaseStatusStruct(caseStatus.Description);
+            return CaseDAL.UpdateStatus(CaseNumber, idCaseStatus);
         }
     }
 }

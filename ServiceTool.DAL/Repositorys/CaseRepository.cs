@@ -25,9 +25,9 @@ namespace ServiceTool.DAL.Repositorys
             return CaseContext.Get(id);
         }
 
-        public bool UpdateStatus(string CaseNumber, CaseStatusStruct caseStatusStruct)
+        public bool UpdateStatus(string CaseNumber, int idCaseStatus)
         {
-            return CaseContext.UpdateStatus(CaseNumber, caseStatusStruct);
+            return CaseContext.UpdateStatus(CaseNumber, idCaseStatus);
         }
     }
 }

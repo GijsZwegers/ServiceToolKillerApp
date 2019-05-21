@@ -16,5 +16,10 @@ namespace ServiceTool.DAL.Interface
             this.Comment = comment;
             this.Active = active;
         }
+
+        public CaseStruct()
+        {
+
+        }
     }
 }

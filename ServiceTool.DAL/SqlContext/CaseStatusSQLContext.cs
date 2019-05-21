@@ -9,9 +9,6 @@ namespace ServiceTool.DAL.SqlContext
 {
     public class CaseStatusSQLContext : ICaseStatusContext
     {
-        /// <summary>
-        /// Dal moet nog worden geimplementeerd
-        /// </summary>
         
         const string connectionstring = @"Data Source=DESKTOPTHINKPAD;Initial Catalog=ServiceTool;Integrated Security=True";
 

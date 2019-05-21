@@ -12,5 +12,14 @@ namespace ServiceTool.DAL.Interface
         public string Mail { get; set; }
         public int Pin { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        public CustomerUserStruct(string name, bool isActive, string mail, int pin, DateTime dateOfBirth)
+        {
+            this.Name = name;
+            this.IsActive = isActive;
+            this.Mail = mail;
+            this.Pin = pin;
+            this.DateOfBirth = dateOfBirth;
+        }
     }
 }
