@@ -36,7 +36,7 @@ namespace ServiceTool.UnitTest.MemoryContext
         public void Update(int id, CaseStatusStruct caseStatus)
         {
             CaseStatusStruct css = caseStatusStructs.FirstOrDefault(cs => cs.Id == id);
-            css.Description = caseStatus.Description;
+            //css.Description = caseStatus.Description; //TODO
         }
     }
 }

@@ -13,38 +13,36 @@ namespace ServiceTool.DAL.SqlContext
         /// Not yet implemented
         /// </summary>
 
-        const string connectionstring = @"Data Source=DESKTOPTHINKPAD;Initial Catalog=ServiceTool;Integrated Security=True";
+        private readonly DatabaseConnection _connection;
 
-        private SqlConnection conn;
-
-        private SqlConnection GetConnection()
+        public CaseSQLContext(DatabaseConnection connection)
         {
-            return conn = new SqlConnection(connectionstring);
+            _connection = connection;
         }
+
+        public CaseSQLContext()
+        {}
 
         public void Close(string CaseNumber)
         {
-            using (GetConnection())
+            using (_connection.SqlConnection)
             {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("UPDATE [Case] SET [Case].Active = 0 WHERE CaseNumber ='" + CaseNumber, conn))
+                _connection.SqlConnection.Open();
+                using (SqlCommand command = new SqlCommand("UPDATE [Case] SET [Case].Active = 0 WHERE CaseNumber ='" + CaseNumber, _connection.SqlConnection))
                 {
                     command.ExecuteNonQuery();  
                 }
-                conn.Close();
+                _connection.SqlConnection.Close();
             }
         }
 
         public CaseStruct Get(int id)
         {
             CaseStruct cs = new CaseStruct();
-            using (GetConnection())
-            {
-                //conn.Open();
 
-                using (GetConnection())
+                using (_connection.SqlConnection)
                 {
-                    conn.Open();
+                    _connection.SqlConnection.Open();
                     using (SqlCommand command = new SqlCommand("SELECT " +
                     "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] " +
                     "FROM [Case] " +
@@ -61,8 +59,7 @@ namespace ServiceTool.DAL.SqlContext
                             }
                         }
                     }
-                    conn.Close();
-                }
+                    _connection.SqlConnection.Close();
             }
             return cs;
         }
@@ -70,7 +67,6 @@ namespace ServiceTool.DAL.SqlContext
         //Nadenken of ik dit niet beter een boolean kan maken en of ik aan de hand van het casenummer ga werken of aan de hand van het meegegeven ID
         public bool UpdateStatus(string caseNumber, int idCaseStatus)
         {
-
             throw new NotImplementedException();
         }
     }

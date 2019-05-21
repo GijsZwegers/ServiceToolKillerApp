@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceTool.DAL.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,7 +11,8 @@ namespace ServiceTool.DAL.ContextInterfaces
         bool SetToInactive();
         int GetPin();
         int GetPinForCustomer(int CustomerId);
-        bool Login();
+        ServiceUserStruct Login(string Email, string Password);
+        ServiceUserStruct Register(string Name, string Email, string Password);
         bool Logout();
     }
 }

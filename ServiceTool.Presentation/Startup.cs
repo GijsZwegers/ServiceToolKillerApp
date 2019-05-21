@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceTool.DAL;
+using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Interface;
+using ServiceTool.DAL.Repositorys;
+using ServiceTool.DAL.SqlContext;
 
 namespace ServiceTool.Presentation
 {
@@ -24,6 +25,18 @@ namespace ServiceTool.Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // INFO: MVC core needs this to implement cookie authentication. The session information will be now stored in a session Cookie
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    options.Cookie.SameSite = SameSiteMode.Lax;
+                    options.Cookie.Name = "AuthenticationExample.AuthCookieAspNetCore";
+                    options.LoginPath = "/User/Login";
+                    options.LogoutPath = "/User/Logout";
+                });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -31,6 +44,10 @@ namespace ServiceTool.Presentation
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddTransient(_ => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICaseContext, CaseSQLContext>();
+            //services.AddScoped<ICustomerUser, CustomerUserRepository>();
+            //services.AddScoped<IServiceUser, ServiceUserRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

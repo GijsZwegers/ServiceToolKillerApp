@@ -10,8 +10,11 @@ namespace ServiceTool.DAL.Repositorys
     {
         private ICaseContext CaseContext;
 
-        public CaseRepository(ICaseContext caseContext)
+        private readonly DatabaseConnection _connection;
+
+        public CaseRepository(ICaseContext caseContext /*, DatabaseConnection connection*/)
         {
+            //_connection = connection;
             CaseContext = caseContext;
         }
 

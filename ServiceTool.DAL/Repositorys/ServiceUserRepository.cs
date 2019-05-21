@@ -1,12 +1,9 @@
 ﻿using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ServiceTool.DAL.Repositorys
 {
-    public class ServiceUserRepository : IServiceUser
+    public class ServiceUserRepository : IServiceUser, IServiceUserCollection
     {
         private IServiceUserContext ServiceUserContext;
 
@@ -24,14 +21,19 @@ namespace ServiceTool.DAL.Repositorys
             return ServiceUserContext.GetPinForCustomer(CustomerId);
         }
 
-        public bool Login()
+        public ServiceUserStruct Login(string email, string password)
         {
-            return ServiceUserContext.Login();
+            return ServiceUserContext.Login(email, password);
         }
 
         public bool Logout()
         {
             return ServiceUserContext.Logout();
+        }
+
+        public ServiceUserStruct Register(string name, string email, string password)
+        {
+            throw new System.NotImplementedException();
         }
 
         public bool ResetPin(int NewPin)

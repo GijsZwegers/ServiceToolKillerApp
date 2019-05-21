@@ -10,7 +10,6 @@ namespace ServiceTool.DAL.Interface
         bool SetToInactive();
         int GetPin();
         int GetPinForCustomer(int CustomerId);
-        bool Login();
         bool Logout();
     }
 }

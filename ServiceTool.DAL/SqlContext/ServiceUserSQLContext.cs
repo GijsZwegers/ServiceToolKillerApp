@@ -19,12 +19,17 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-        public bool Login()
+        public ServiceUserStruct Login(string Email, string Password)
         {
             throw new NotImplementedException();
         }
 
         public bool Logout()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ServiceUserStruct Register(string Name, string Email, string Password)
         {
             throw new NotImplementedException();
         }

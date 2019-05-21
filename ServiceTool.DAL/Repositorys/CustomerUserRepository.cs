@@ -1,14 +1,24 @@
 ﻿using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ServiceTool.DAL.Repositorys
 {
     public class CustomerUserRepository : ICustomerUser
     {
         private ICustomerUserContext CustomerUserContext;
+
+        private readonly DatabaseConnection _connection;
+
+        public CustomerUserRepository(DatabaseConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public CustomerUserRepository(ICustomerUserContext customerUserContext, DatabaseConnection connection)
+        {
+            CustomerUserContext = customerUserContext;
+            _connection = connection;
+        }
 
         public CustomerUserRepository(ICustomerUserContext customerUserContext)
         {
