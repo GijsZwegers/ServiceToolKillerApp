@@ -11,7 +11,7 @@ namespace ServiceTool.DAL.Interface
 
         public CaseStruct(string caseNumber, CaseStatusStruct caseStatus, string comment, bool active)
         {
-            this.CaseNumber = CaseNumber;
+            this.CaseNumber = caseNumber;
             this.CaseStatus = caseStatus;
             this.Comment = comment;
             this.Active = active;
