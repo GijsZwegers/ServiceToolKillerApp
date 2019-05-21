@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.DAL.Factory", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.UnitTest", "ServiceToolUnitTests\ServiceTool.UnitTest.csproj", "{C6FABE99-6892-4DE8-B369-705669DD44B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTool.Presentation", "ServiceTool.Presentation\ServiceTool.Presentation.csproj", "{CF95D232-53F6-4BA4-BE85-F102D253E15F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C6FABE99-6892-4DE8-B369-705669DD44B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6FABE99-6892-4DE8-B369-705669DD44B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6FABE99-6892-4DE8-B369-705669DD44B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
