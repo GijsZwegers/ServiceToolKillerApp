@@ -23,7 +23,7 @@ namespace ServiceTool.Presentation.Controllers
 
         public IActionResult Index()
         {
-            Case caseStatus = new Case(_caseContext.Get(1));
+            //Case caseStatus = new Case(_caseContext.Get(1)); this was just for testing ^^
             return View();
         }
 

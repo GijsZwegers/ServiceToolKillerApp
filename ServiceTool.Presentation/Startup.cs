@@ -46,6 +46,7 @@ namespace ServiceTool.Presentation
 
             services.AddTransient(_ => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICaseContext, CaseSQLContext>();
+            services.AddScoped<IServiceUserContext, ServiceUserSQLContext>();
             //services.AddScoped<ICustomerUser, CustomerUserRepository>();
             //services.AddScoped<IServiceUser, ServiceUserRepository>();
 

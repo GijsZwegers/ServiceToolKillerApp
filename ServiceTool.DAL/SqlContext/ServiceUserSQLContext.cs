@@ -9,6 +9,16 @@ namespace ServiceTool.DAL.SqlContext
 {
     public class ServiceUserSQLContext : IServiceUserContext
     {
+        private readonly DatabaseConnection _connection;
+
+        public ServiceUserSQLContext(DatabaseConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public ServiceUserSQLContext()
+        {}
+
         public int GetPin()
         {
             throw new NotImplementedException();
@@ -21,7 +31,32 @@ namespace ServiceTool.DAL.SqlContext
 
         public ServiceUserStruct Login(string Email, string Password)
         {
-            throw new NotImplementedException();
+            _connection.SqlConnection.Open();
+
+            var cmd = new SqlCommand("SELECT [User].Name, [User].Mail, [User].IsActive " +
+                "FROM [User] " +
+                "INNER JOIN [ServiceUser] ON [User].idServiceUser = [ServiceUser].idServiceUser " +
+                "WHERE [User].Mail = @mail " +
+                "AND [ServiceUser].Password = @password", _connection.SqlConnection);
+            cmd.Parameters.Add(new SqlParameter("mail", Email));
+            cmd.Parameters.Add(new SqlParameter("password", Password));
+
+            var reader = cmd.ExecuteReader();
+
+            ServiceUserStruct sus = new ServiceUserStruct();
+
+            while(reader.Read())
+            {
+                sus = new ServiceUserStruct(
+                    reader.GetString(0),
+                    reader.GetString(1),
+                    reader.GetBoolean(2)
+                    );
+            }
+
+            _connection.SqlConnection.Close();
+
+            return sus;
         }
 
         public bool Logout()

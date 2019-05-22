@@ -8,6 +8,17 @@ namespace ServiceTool.DAL.SqlContext
 {
     public class CustomerUserSQLContext : ICustomerUserContext
     {
+
+        private readonly DatabaseConnection _connection;
+
+        public CustomerUserSQLContext(DatabaseConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public CustomerUserSQLContext()
+        {}
+
         public int GetPin()
         {
             throw new NotImplementedException();

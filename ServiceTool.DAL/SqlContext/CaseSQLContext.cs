@@ -25,15 +25,15 @@ namespace ServiceTool.DAL.SqlContext
 
         public void Close(string CaseNumber)
         {
-            using (_connection.SqlConnection)
-            {
-                _connection.SqlConnection.Open();
-                using (SqlCommand command = new SqlCommand("UPDATE [Case] SET [Case].Active = 0 WHERE CaseNumber ='" + CaseNumber, _connection.SqlConnection))
-                {
-                    command.ExecuteNonQuery();  
-                }
-                _connection.SqlConnection.Close();
-            }
+            _connection.SqlConnection.Open();
+
+            var cmd = new SqlCommand("UPDATE[Case] SET[Case].Active = 0 " +
+                    "WHERE CaseNumber = @casenNumber", _connection.SqlConnection);
+            cmd.Parameters.Add(new SqlParameter("casenNumber", CaseNumber));
+
+            cmd.ExecuteNonQuery();
+
+            _connection.SqlConnection.Close();
         }
 
         public CaseStruct Get(int id)
