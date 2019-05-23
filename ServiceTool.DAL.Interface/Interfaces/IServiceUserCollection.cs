@@ -6,7 +6,7 @@ namespace ServiceTool.DAL.Interface
 {
     public interface IServiceUserCollection
     {
-        ServiceUserStruct Login(string email, string password);
+        ServiceUserStruct GetServiceUser(string email);
         ServiceUserStruct Register(string name, string email, string password);
     }
 }

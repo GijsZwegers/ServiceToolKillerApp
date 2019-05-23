@@ -11,8 +11,9 @@ namespace ServiceTool.DAL.ContextInterfaces
         bool SetToInactive();
         int GetPin();
         int GetPinForCustomer(int CustomerId);
-        ServiceUserStruct Login(string Email, string Password);
+        ServiceUserStruct GetServiceUser(string Email);
         ServiceUserStruct Register(string Name, string Email, string Password);
+        string GetServiceUserHashedPassword(string Email);
         bool Logout();
     }
 }

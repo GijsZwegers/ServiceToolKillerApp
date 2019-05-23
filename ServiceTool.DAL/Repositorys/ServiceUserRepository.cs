@@ -21,9 +21,9 @@ namespace ServiceTool.DAL.Repositorys
             return ServiceUserContext.GetPinForCustomer(CustomerId);
         }
 
-        public ServiceUserStruct Login(string email, string password)
+        public ServiceUserStruct GetServiceUser(string email)
         {
-            return ServiceUserContext.Login(email, password);
+            return ServiceUserContext.GetServiceUser(email);
         }
 
         public bool Logout()

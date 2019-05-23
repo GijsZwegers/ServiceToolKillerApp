@@ -1,13 +1,23 @@
-﻿using System;
+﻿using ServiceTool.DAL.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ServiceTool.Logic
 {
-    internal class ServiceUser : User
+    public class ServiceUser : User
     {
         public override string Name { get; set; }
+        public override string Mail { get; set; }
         public override bool IsActive { get; set; }
+        public string Role { get; } = "Service Medewerker";
+
+        public ServiceUser(ServiceUserStruct serviceUserStruct)
+        {
+            this.Name = serviceUserStruct.Name;
+            this.Mail = serviceUserStruct.Mail;
+            this.IsActive = serviceUserStruct.IsActive;
+        }
 
         public override bool LogOut()
         {

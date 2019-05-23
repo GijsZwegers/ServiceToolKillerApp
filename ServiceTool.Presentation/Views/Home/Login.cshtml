@@ -8,7 +8,7 @@
 <div class="card card-login mx-auto mt-5">
     <div class="card-header">Login</div>
     <div class="card-body">
-        <form asp-action="Login" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
+        <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <div class="form-label-group">

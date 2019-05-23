@@ -32,7 +32,7 @@ namespace ServiceTool.Presentation
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Cookie.SameSite = SameSiteMode.Lax;
-                    options.Cookie.Name = "AuthenticationExample.AuthCookieAspNetCore";
+                    options.Cookie.Name = "ServiceTool.AuthCookieAspNetCore";
                     options.LoginPath = "/User/Login";
                     options.LogoutPath = "/User/Logout";
                 });
@@ -47,6 +47,7 @@ namespace ServiceTool.Presentation
             services.AddTransient(_ => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICaseContext, CaseSQLContext>();
             services.AddScoped<IServiceUserContext, ServiceUserSQLContext>();
+
             //services.AddScoped<ICustomerUser, CustomerUserRepository>();
             //services.AddScoped<IServiceUser, ServiceUserRepository>();
 
@@ -70,6 +71,10 @@ namespace ServiceTool.Presentation
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            // INFO: give me acces to the HttpContext.User property which holds current user identity information
+            app.UseAuthentication();
+
+
 
             app.UseMvc(routes =>
             {

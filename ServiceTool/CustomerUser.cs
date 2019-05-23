@@ -6,6 +6,7 @@ namespace ServiceTool.Logic
 {
     public class CustomerUser : User
     {
+        public override string Mail { get; set; }
         public override string Name { get; set; }
         public override bool IsActive { get; set; }
 
@@ -19,7 +20,7 @@ namespace ServiceTool.Logic
             throw new NotImplementedException();
         }
 
-        public string Mail { get; private set; }
+        //public string Mail { get; private set; }
         public int Pin { get; private set; }
         public DateTime DateOfBirth { get; private set; }
 

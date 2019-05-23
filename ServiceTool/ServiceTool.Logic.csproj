@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ServiceTool.DAL.Factory\ServiceTool.DAL.Factory.csproj" />
     <ProjectReference Include="..\ServiceTool.DAL.Interface\ServiceTool.DAL.Interface.csproj" />
   </ItemGroup>

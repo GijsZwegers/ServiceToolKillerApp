@@ -19,6 +19,33 @@ namespace ServiceTool.DAL.SqlContext
         public ServiceUserSQLContext()
         {}
 
+
+        public string GetServiceUserHashedPassword(string email)
+        {
+            _connection.SqlConnection.Open();
+
+            var cmd = new SqlCommand("" +
+                "SELECT [ServiceUser].password " +
+                "FROM [User] " +
+                "INNER JOIN [ServiceUser] ON [ServiceUser].idServiceUser = [User].idServiceUser " +
+                "WHERE [User].Mail = @mail", _connection.SqlConnection);
+            cmd.Parameters.Add(new SqlParameter("mail", email));
+
+            var reader = cmd.ExecuteReader();
+
+            //String for hashed password
+            string hashedpassword = null;
+
+            while(reader.Read())
+            {
+                hashedpassword = reader.GetString(0);
+            }
+
+            _connection.SqlConnection.Close();
+
+            return hashedpassword;
+        }
+
         public int GetPin()
         {
             throw new NotImplementedException();
@@ -29,17 +56,16 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-        public ServiceUserStruct Login(string Email, string Password)
+        public ServiceUserStruct GetServiceUser(string Email)
         {
             _connection.SqlConnection.Open();
 
-            var cmd = new SqlCommand("SELECT [User].Name, [User].Mail, [User].IsActive " +
+            var cmd = new SqlCommand("" +
+                "SELECT [User].Name, [User].Mail, [User].IsActive " +
                 "FROM [User] " +
                 "INNER JOIN [ServiceUser] ON [User].idServiceUser = [ServiceUser].idServiceUser " +
-                "WHERE [User].Mail = @mail " +
-                "AND [ServiceUser].Password = @password", _connection.SqlConnection);
+                "WHERE [User].Mail = @mail ", _connection.SqlConnection);
             cmd.Parameters.Add(new SqlParameter("mail", Email));
-            cmd.Parameters.Add(new SqlParameter("password", Password));
 
             var reader = cmd.ExecuteReader();
 
