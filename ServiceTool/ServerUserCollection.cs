@@ -29,11 +29,11 @@ namespace ServiceTool.Logic
 
         }
 
-        public ServiceUser Register(string mail, string password, string name)
+        public ServiceUser Register(string mail, string password, string name, string lastname)
         {
              password = BCrypt.Net.BCrypt.HashPassword(password);
 
-            return new ServiceUser(_caseContext.Register(name, mail, password));
+            return new ServiceUser(_caseContext.Register(name, lastname, mail, password));
         }
 
     }

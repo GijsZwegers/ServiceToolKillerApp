@@ -8,6 +8,7 @@ namespace ServiceTool.Logic
     {
         public override string Mail { get; set; }
         public override string Name { get; set; }
+        public override string LastName { get; set; }
         public override bool IsActive { get; set; }
 
         public override bool LogOut()

@@ -61,7 +61,7 @@ namespace ServiceTool.DAL.SqlContext
             _connection.SqlConnection.Open();
 
             var cmd = new SqlCommand("" +
-                "SELECT [User].Name, [User].Mail, [User].IsActive " +
+                "SELECT [User].Name, [User].LastName ,[User].Mail, [User].IsActive " +
                 "FROM [User] " +
                 "INNER JOIN [ServiceUser] ON [User].idServiceUser = [ServiceUser].idServiceUser " +
                 "WHERE [User].Mail = @mail ", _connection.SqlConnection);
@@ -76,10 +76,12 @@ namespace ServiceTool.DAL.SqlContext
                 sus = new ServiceUserStruct(
                     reader.GetString(0),
                     reader.GetString(1),
-                    reader.GetBoolean(2)
+                    reader.GetString(2),
+                    reader.GetBoolean(3)
                     );
             }
 
+            //Close Connection
             _connection.SqlConnection.Close();
 
             return sus;
@@ -90,9 +92,62 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-        public ServiceUserStruct Register(string Name, string Email, string Password)
+        public ServiceUserStruct Register(string Name, string LastName, string Email, string Password)
         {
-            throw new NotImplementedException();
+            _connection.SqlConnection.Open();
+
+            var sqlcmd = new SqlCommand("" +
+                "INSERT INTO ServiceUser " +
+                "(Password) VALUES (@password); " +
+                "SELECT IDENT_CURRENT('ServiceUser');", _connection.SqlConnection);
+            sqlcmd.Parameters.Add(new SqlParameter("password", Password));
+
+            var reader = sqlcmd.ExecuteReader();
+            List<ServiceUserStruct> serviceUserStructs = new List<ServiceUserStruct>();
+
+            decimal lastid = 0;
+            while(reader.Read())
+            {
+                lastid = reader.GetDecimal(0);
+            }
+
+            _connection.SqlConnection.Close();
+
+            _connection.SqlConnection.Open();
+
+            var sqlcmd2 = new SqlCommand("" +
+                "INSERT INTO [User] " +
+                "(Name, LastName, idCustomerUser idServiceUser, IsActive, Mail) " +
+                "VALUES (@name, @lastname, @idcustomeruser @idserviceuser @isactive, @mail); " +
+                "GO; " +
+                "SELECT [User].Name, [User].LastName ,[User].Mail, [User].IsActive " +
+                "FROM [User] " +
+                "INNER JOIN [ServiceUser] ON [User].idServiceUser = [ServiceUser].idServiceUser " +
+                "WHERE [User].id = @id; ", _connection.SqlConnection);
+            sqlcmd2.Parameters.Add(new SqlParameter("name", Name));
+            sqlcmd2.Parameters.Add(new SqlParameter("lastname", LastName));
+            sqlcmd2.Parameters.Add(new SqlParameter("idcustomeruser", null));
+            sqlcmd2.Parameters.Add(new SqlParameter("idserviceuser", lastid));
+            sqlcmd2.Parameters.Add(new SqlParameter("isactive", true));
+            sqlcmd2.Parameters.Add(new SqlParameter("mail", Email));
+            sqlcmd2.Parameters.Add(new SqlParameter("id", lastid));
+
+            reader = sqlcmd2.ExecuteReader();
+
+            ServiceUserStruct sus = new ServiceUserStruct();
+
+            while (reader.Read())
+            {
+                sus = new ServiceUserStruct(
+                    reader.GetString(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetBoolean(3)
+                    );
+            }
+            _connection.SqlConnection.Close();
+
+            return sus;
         }
 
         public bool ResetPin(int NewPin)

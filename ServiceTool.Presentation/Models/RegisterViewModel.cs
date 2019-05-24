@@ -17,6 +17,12 @@ namespace ServiceTool.Presentation.Models
 
         [Required]
         [MinLength(8)]
+        public string PasswordCheck { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
     }
 }

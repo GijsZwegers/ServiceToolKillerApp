@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.Logic;
+using ServiceTool.Presentation.Assets;
 using ServiceTool.Presentation.Models;
 
 namespace ServiceTool.Presentation.Controllers
@@ -35,6 +36,13 @@ namespace ServiceTool.Presentation.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -45,19 +53,26 @@ namespace ServiceTool.Presentation.Controllers
 
             ServiceUser serviceuser = serverUserCollection.Login(model.Email, model.Password);
 
+            //TODO: Add code for Customer User
+
             if (serviceuser == null)
             {
                 ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 return View(model);
             }
 
-            // INFO: Claims are use to specify properties of an Identity (a user)
-            var claims = new List<Claim>
+            //INFO: Claims are use to specify properties of an Identity(a user)
+            List<Claim> claims = null;
+            if ((serviceuser != null))
             {
-                new Claim(ClaimTypes.Name, serviceuser.Name),
-                new Claim(ClaimTypes.Role, serviceuser.Role),
-                new Claim(ClaimTypes.Email, serviceuser.Mail)
-            };
+                claims = new List<Claim>
+                {
+                    new Claim("Name", serviceuser.Name),
+                    new Claim("Role", Role.Admin.ToString()),
+                    new Claim("Email", serviceuser.Mail),
+                    new Claim(ClaimTypes.Role, Role.Admin)
+                };
+            }
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties();
@@ -70,16 +85,31 @@ namespace ServiceTool.Presentation.Controllers
             return LocalRedirect(returnUrl);
         }
 
-        [AllowAnonymous]
+        [AuthorizeRoles(Roles = Role.Admin)]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
         public async Task<ActionResult> Register(RegisterViewModel model, string returnUrl)
         {
             // Lets first check if the Model is valid or not
             if (!ModelState.IsValid) return View(model);
 
+            if (model.Password != model.PasswordCheck)
+            {
+                ModelState.AddModelError("", "The passwords don't match");
+                return View(model);
+            }
+
+            ServiceUser serviceUser = serverUserCollection.Register(model.Email, model.Password, model.Name, model.LastName);
+
             //ServiceUser serviceUser = new ServiceUser(_serviceUserContect.Login(model.Email, model.Password));
 
             //For testing
-            return NoContent();
+            return View("Login");
         }
     }
 }

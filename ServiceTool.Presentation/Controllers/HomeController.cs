@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Repositorys;
 using ServiceTool.Logic;
+using ServiceTool.Presentation.Assets;
 using ServiceTool.Presentation.Models;
 
 namespace ServiceTool.Presentation.Controllers
@@ -36,15 +37,17 @@ namespace ServiceTool.Presentation.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Logout()
+        [AuthorizeRoles(Role.Admin, Role.User)]
+        public JsonResult GetForCompanyCases()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            return RedirectToAction("Login");
+            return Json("");
         }
 
-        
-
+        [Authorize(Roles = "Service Medewerker")]
+        public JsonResult GetAllCases()
+        {
+            return Json("");
+        }
 
         public IActionResult Privacy()
         {
