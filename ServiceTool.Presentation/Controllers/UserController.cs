@@ -18,10 +18,12 @@ namespace ServiceTool.Presentation.Controllers
     {
 
         private ServerUserCollection serverUserCollection;
+        private CustomerUserCollection customerUserCollection;
 
-        public UserController(IServiceUserContext caseContext)
+        public UserController(IServiceUserContext serviceUserContext, ICustomerUserContext customerUserContext)
         {
-            serverUserCollection = new ServerUserCollection(caseContext);
+            serverUserCollection = new ServerUserCollection(serviceUserContext);
+            customerUserCollection = new CustomerUserCollection(customerUserContext);
         }
 
         [AllowAnonymous]
@@ -84,6 +86,57 @@ namespace ServiceTool.Presentation.Controllers
 
             return LocalRedirect(returnUrl);
         }
+
+        [AllowAnonymous]
+        public IActionResult Installer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginCustomerUser(LogininstallerViewModel model, string returnUrl)
+        {
+            // Lets first check if the Model is valid or not
+            if (!ModelState.IsValid) return View(model);
+
+            CustomerUser customeruser = customerUserCollection.Login(model.Email, model.pin);
+
+            //TODO: Add code for Customer User
+
+            //CustomerUser customerUser =  
+
+            if (customeruser == null)
+            {
+                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                return View(model);
+            }
+
+            //INFO: Claims are use to specify properties of an Identity(a user)
+            List<Claim> claims = null;
+            if ((customeruser != null))
+            {
+                claims = new List<Claim>
+                {
+                    new Claim("Name", customeruser.Name),
+                    new Claim("Role", Role.User.ToString()),
+                    new Claim("Email", customeruser.Mail),
+                    new Claim(ClaimTypes.Role, Role.User)
+                };
+            }
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties();
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+
+            return LocalRedirect(returnUrl);
+        }
+
 
         [AuthorizeRoles(Roles = Role.Admin)]
         public IActionResult Register()

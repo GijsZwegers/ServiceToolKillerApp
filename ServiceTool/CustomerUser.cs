@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceTool.DAL.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,6 +7,18 @@ namespace ServiceTool.Logic
 {
     public class CustomerUser : User
     {
+        public CustomerUser()
+        {}
+
+        public CustomerUser(CustomerUserStruct customerUserStruct)
+        {
+            this.Mail = customerUserStruct.Mail;
+            this.Name = customerUserStruct.Name;
+            this.IsActive = customerUserStruct.IsActive;
+            this.DateOfBirth = customerUserStruct.DateOfBirth;
+            this.Pin = customerUserStruct.Pin;
+        }
+
         public override string Mail { get; set; }
         public override string Name { get; set; }
         public override string LastName { get; set; }

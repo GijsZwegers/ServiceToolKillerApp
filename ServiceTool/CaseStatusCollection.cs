@@ -1,4 +1,5 @@
-﻿using ServiceTool.DAL.Factory;
+﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Factory;
 using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
@@ -6,8 +7,19 @@ using System.Text;
 
 namespace ServiceTool.Logic
 {
-    public static class CaseStatusCollection
+    public class CaseStatusCollection
     {
+
+        //private readonly ICaseContext _caseContext;
+
+        //public CaseStatusCollection(ICaseContext caseContext)
+        //{
+        //    _caseContext = caseContext;
+        //}
+
+        //public CaseStatusCollection()
+        //{}
+
         public static ICaseStatusCollectionDAL CaseStatusCollectionDAL { get; set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
 
         public static void NewCaseStatus(CaseStatusStruct caseStatus)

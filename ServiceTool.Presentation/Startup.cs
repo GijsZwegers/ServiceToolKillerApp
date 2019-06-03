@@ -33,7 +33,7 @@ namespace ServiceTool.Presentation
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Cookie.SameSite = SameSiteMode.Lax;
                     options.Cookie.Name = "ServiceTool.AuthCookieAspNetCore";
-                    options.LoginPath = "/User/Login";
+                    options.LoginPath = "/User/Installer";
                     options.LogoutPath = "/User/Logout";
                 });
 
@@ -47,6 +47,7 @@ namespace ServiceTool.Presentation
             services.AddTransient(_ => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICaseContext, CaseSQLContext>();
             services.AddScoped<IServiceUserContext, ServiceUserSQLContext>();
+            services.AddScoped<ICustomerUserContext, CustomerUserSQLContext>();
 
             //services.AddScoped<ICustomerUser, CustomerUserRepository>();
             //services.AddScoped<IServiceUser, ServiceUserRepository>();

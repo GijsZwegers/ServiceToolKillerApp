@@ -19,11 +19,15 @@ namespace ServiceTool.Presentation.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private Case Case;
         private ServerUserCollection serverUserCollection;
+        private CaseCollection CaseCollection;
 
-        public HomeController(IServiceUserContext caseContext)
+        public HomeController(IServiceUserContext serviceusercontext, ICaseContext caseContext)
         {
-            serverUserCollection = new ServerUserCollection(caseContext);
+            serverUserCollection = new ServerUserCollection(serviceusercontext);
+            Case = new Case(caseContext);
+            CaseCollection = new CaseCollection(caseContext);
         }
 
 
@@ -37,15 +41,16 @@ namespace ServiceTool.Presentation.Controllers
             return View();
         }
 
-        [AuthorizeRoles(Role.Admin, Role.User)]
-        public JsonResult GetForCompanyCases()
+        [AuthorizeRoles(Role.User)]
+        public JsonResult GetCasesForCompany()
         {
             return Json("");
         }
 
-        [Authorize(Roles = "Service Medewerker")]
+        [AuthorizeRoles(Role.Admin)]
         public JsonResult GetAllCases()
         {
+            CaseCollection.GetAllCases();
             return Json("");
         }
 

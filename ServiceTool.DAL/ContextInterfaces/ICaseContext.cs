@@ -10,5 +10,7 @@ namespace ServiceTool.DAL.ContextInterfaces
         CaseStruct Get(int id);
         void Close(string CaseNumber);
         bool UpdateStatus(string CaseNumber, int idCaseStatus);
+        List<CaseStruct> GetAllCases();
+        List<CaseStruct> GetCasesForCompany(int idCompany);
     }
 }

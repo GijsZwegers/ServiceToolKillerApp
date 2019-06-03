@@ -92,5 +92,59 @@ namespace ServiceTool.DAL.SqlContext
 
             throw new NotImplementedException();
         }
+
+        public List<CaseStruct> GetAllCases()
+        {
+            _connection.SqlConnection.Open();
+
+            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].id [CaseStatus].[Description], [Case].[Comment], [Case].[Active] FROM [Case]" +
+                "INNER JOIN [CaseStatus] ON " +
+                "CaseStatus.idCaseStatus = [Case].[idCaseStatus]", _connection.SqlConnection);
+
+            var reader = cmd.ExecuteReader();
+
+            List<CaseStruct> lcs = new List<CaseStruct>();
+
+            while (reader.Read())
+            {
+                lcs.Add(new CaseStruct(
+                    reader.GetString(0),
+                    new CaseStatusStruct(reader.GetString(1)),
+                    reader.GetString(2),
+                    reader.GetBoolean(3)));
+            }
+
+            _connection.SqlConnection.Close();
+
+            return lcs;
+        }
+
+        public List<CaseStruct> GetCasesForCompany(int idCompany)
+        {
+            _connection.SqlConnection.Open();
+
+            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].id [CaseStatus].[Description], [Case].[Comment], [Case].[Active] FROM [Case]" +
+                "INNER JOIN [CaseStatus] ON " +
+                "CaseStatus.idCaseStatus = [Case].[idCaseStatus]" +
+                "WHERE [Case].idCompany = @idCompany", _connection.SqlConnection);
+            cmd.Parameters.Add(new SqlParameter("idCompany", idCompany));
+
+            var reader = cmd.ExecuteReader();
+
+            List<CaseStruct> lcs = new List<CaseStruct>();
+
+            while (reader.Read())
+            {
+                lcs.Add(new CaseStruct(
+                    reader.GetString(0),
+                    new CaseStatusStruct(reader.GetString(1)),
+                    reader.GetString(2),
+                    reader.GetBoolean(3)));
+            }
+
+            _connection.SqlConnection.Close();
+
+            return lcs;
+        }
     }
 }

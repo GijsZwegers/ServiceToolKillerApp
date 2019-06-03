@@ -1,4 +1,5 @@
-﻿using ServiceTool.DAL.Factory;
+﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Factory;
 using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,16 @@ namespace ServiceTool.Logic
 {
     public class Case
     {
+        private readonly ICaseContext _caseContext;
+
+        public Case(ICaseContext caseContext)
+        {
+            _caseContext = caseContext;
+        }
+
+        public Case()
+        {}
+
         public string CaseNumber { get; private set; }
         public CaseStatusStruct CaseStatus { get; private set; }
         public string Comment { get; private set; }

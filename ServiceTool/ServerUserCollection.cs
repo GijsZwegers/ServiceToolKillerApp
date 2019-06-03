@@ -9,23 +9,23 @@ namespace ServiceTool.Logic
     {
         //public static IServiceUserCollection ServiceUserCollection { get; set; } = UserFactory.CreateServiceCollection();
 
-        private readonly IServiceUserContext _caseContext;
+        private readonly IServiceUserContext _serviceUserContext;
 
-        public ServerUserCollection(IServiceUserContext caseContext)
+        public ServerUserCollection(IServiceUserContext serviceUserContext)
         {
-            _caseContext = caseContext;
+            _serviceUserContext = serviceUserContext;
         }
 
         public ServiceUser Login(string mail, string password)
         {
-            string hash = _caseContext.GetServiceUserHashedPassword(mail);
+            string hash = _serviceUserContext.GetServiceUserHashedPassword(mail);
             //Encypt
             if(!BCrypt.Net.BCrypt.Verify(password, hash))
             {
                 return null;
             }
             
-            return new ServiceUser(_caseContext.GetServiceUser(mail));
+            return new ServiceUser(_serviceUserContext.GetServiceUser(mail));
 
         }
 
@@ -33,7 +33,7 @@ namespace ServiceTool.Logic
         {
              password = BCrypt.Net.BCrypt.HashPassword(password);
 
-            return new ServiceUser(_caseContext.Register(name, lastname, mail, password));
+            return new ServiceUser(_serviceUserContext.Register(name, lastname, mail, password));
         }
 
     }
