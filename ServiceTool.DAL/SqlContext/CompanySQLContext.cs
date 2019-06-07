@@ -38,7 +38,7 @@ namespace ServiceTool.DAL.SqlContext
             {
                 string query = "SELECT " +
                     "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] " +
-                    "FROM [Case] INNER JOIN CaseStatus ON " +
+                    "FROM [Case], [Case].[LastEdited] INNER JOIN CaseStatus ON " +
                     "[Case].[idCaseStatus] = [CaseStatus].[idCaseStatus] WHERE [Case].[idCompany] ="+ CompanyId;
                 conn.Open();
                 SqlCommand command = new SqlCommand(query, conn);
@@ -50,8 +50,8 @@ namespace ServiceTool.DAL.SqlContext
                             reader.GetString(0),
                             new CaseStatusStruct(reader.GetString(1)),
                             reader.GetString(2),
-                            reader.GetBoolean(3)
-                            ));
+                            reader.GetBoolean(3),
+                            reader.GetDateTime(4)));
                     }
                     conn.Close();
                 }
@@ -70,7 +70,7 @@ namespace ServiceTool.DAL.SqlContext
             using (GetConnection())
             {
                 string query = "SELECT " +
-                    " [Customer].[Name], [Customer].[Active], [Customer].[Mail]" +
+                    "[Customer].[idCustomerUser] [Customer].[Name], [Customer].[Active], [Case].[idCompany], [Customer].[Mail]" +
                     "FROM [Customer]  INNER JOIN ON " +
                     "[Customer].[idCompany] = [Company].[idCompany]  WHERE [Case].[idCompany] =" + CompanyId;
                 conn.Open();
@@ -80,11 +80,13 @@ namespace ServiceTool.DAL.SqlContext
                     while (reader.Read())
                     {
                         customers.Add(new CustomerUserStruct(
-                            reader.GetString(0),
-                            reader.GetBoolean(1),
-                            reader.GetString(2),
-                            reader.GetInt32(3),
-                            reader.GetDateTime(4)
+                            reader.GetInt32(0),
+                            reader.GetString(1),
+                            reader.GetBoolean(2),
+                            reader.GetString(3),
+                            reader.GetInt32(4),
+                            reader.GetInt32(5),
+                            reader.GetDateTime(6)
                             ));
                     }
                     conn.Close();

@@ -44,7 +44,7 @@ namespace ServiceTool.DAL.SqlContext
             _connection.SqlConnection.Open();
 
             var cmd = new SqlCommand("" +
-                "SELECT [CustomerUser].Name, [User].IsActive, [User].Mail, [CustomerUser].Pin, [CustomerUser].DateOfBirth " +
+                "SELECT [CustomerUser].[idCustomerUser], [CustomerUser].Name, [User].IsActive, [User].Mail, [CustomerUser].[idCompany], [CustomerUser].Pin, [CustomerUser].DateOfBirth " +
                 "FROM [User] " +
                 "INNER JOIN [CustomerUser] ON [CustomerUser].idCustomerUser = [User].idCustomerUser " +
                 "WHERE [User].Mail = @mail AND [CustomerUser].pin = @pin", _connection.SqlConnection);
@@ -58,11 +58,13 @@ namespace ServiceTool.DAL.SqlContext
             while (reader.Read())
             {
                 customerUserStruct = new CustomerUserStruct(
-                    reader.GetString(0),    //name
-                    reader.GetBoolean(1),   //active
-                    reader.GetString(2),    //mail
-                    Convert.ToInt32(reader.GetString(3)),     //pin
-                    reader.GetDateTime(4)   //birthdate
+                    reader.GetInt32(0),    //id
+                    reader.GetString(1),    //name
+                    reader.GetBoolean(2),   //active
+                    reader.GetString(3),    //mail
+                    reader.GetInt32(4),    //companyId
+                    Convert.ToInt32(reader.GetString(5)),     //pin
+                    reader.GetDateTime(6)   //birthdate
                     );
             }
 

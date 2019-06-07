@@ -84,7 +84,7 @@ namespace ServiceTool.Presentation.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
 
-            return LocalRedirect(returnUrl);
+            return RedirectToAction("Index", "Home");
         }
 
         [AllowAnonymous]
@@ -120,6 +120,7 @@ namespace ServiceTool.Presentation.Controllers
                 claims = new List<Claim>
                 {
                     new Claim("Name", customeruser.Name),
+                    new Claim("CompanyId", customeruser.CompanyId.ToString()),
                     new Claim("Role", Role.User.ToString()),
                     new Claim("Email", customeruser.Mail),
                     new Claim(ClaimTypes.Role, Role.User)

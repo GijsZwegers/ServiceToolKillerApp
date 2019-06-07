@@ -3,13 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <StartupObject>ServiceTool.Presentation.Program</StartupObject>
   </PropertyGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 
@@ -17,6 +21,11 @@
     <ProjectReference Include="..\ServiceTool.DAL.Interface\ServiceTool.DAL.Interface.csproj" />
     <ProjectReference Include="..\ServiceTool.DAL\ServiceTool.DAL.csproj" />
     <ProjectReference Include="..\ServiceTool\ServiceTool.Logic.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Views\Cases\" />
   </ItemGroup>
 
 </Project>

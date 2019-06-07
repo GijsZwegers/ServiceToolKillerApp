@@ -19,35 +19,39 @@ namespace ServiceTool.Logic
         public Case()
         {}
 
+        public int id { get; private set; }
         public string CaseNumber { get; private set; }
         public CaseStatusStruct CaseStatus { get; private set; }
         public string Comment { get; private set; }
         public bool Active { get; private set; }
-        public ICaseDAL CaseDAL { get; private set; } = CaseFactory.CreateCaseDAL();
+        public DateTime LastEdited { get; private set; }
+        //public ICaseDAL CaseDAL { get; private set; } = CaseFactory.CreateCaseDAL();
 
         public Case(CaseStruct caseStruct)
         {
+            this.id = caseStruct.Id;
             this.CaseNumber = caseStruct.CaseNumber;
             this.CaseStatus = caseStruct.CaseStatus;
             this.Comment = caseStruct.Comment;
             this.Active = caseStruct.Active;
+            this.LastEdited = caseStruct.LastEdited;
         }
 
         public Case Get(int id)
         {
-            CaseStruct caseStruct = CaseDAL.Get(id);
+            CaseStruct caseStruct = _caseContext.Get(id);
             return new Case(caseStruct);
         }
 
         public void Close()
         {
-            CaseDAL.Close(this.CaseNumber);
+            _caseContext.Close(this.CaseNumber);
         }
 
         public bool UpdateStatus(string caseNumber, int idCaseStatus)
         {
             //CaseStatusStruct caseStatusStruct = new CaseStatusStruct(caseStatus.Description);
-            return CaseDAL.UpdateStatus(CaseNumber, idCaseStatus);
+            return _caseContext.UpdateStatus(CaseNumber, idCaseStatus);
         }
     }
 }

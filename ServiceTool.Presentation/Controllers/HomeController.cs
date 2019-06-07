@@ -19,29 +19,41 @@ namespace ServiceTool.Presentation.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private Case Case;
+        private Logic.Case Case;
         private ServerUserCollection serverUserCollection;
         private CaseCollection CaseCollection;
 
         public HomeController(IServiceUserContext serviceusercontext, ICaseContext caseContext)
         {
             serverUserCollection = new ServerUserCollection(serviceusercontext);
-            Case = new Case(caseContext);
+            Case = new Logic.Case(caseContext);
             CaseCollection = new CaseCollection(caseContext);
         }
 
 
         public IActionResult Index()
         {
-            return View();
+            CaseViewModel csvm = new CaseViewModel();
+            if (User.HasClaim("Role", Role.Admin))
+            {
+                csvm = new CaseViewModel(CaseCollection.GetAllCases());
+            }
+            if (User.HasClaim("Role", Role.User))
+            {
+                var CompanyId = User.FindFirst("CompanyId").Value;
+
+                csvm = new CaseViewModel(CaseCollection.GetCasesForCompany(Convert.ToInt32(CompanyId)));
+            }
+            return View(csvm);
         }
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
-        [AuthorizeRoles(Role.User)]
+        [AuthorizeRoles(Role.User, Role.Admin)]
         public JsonResult GetCasesForCompany()
         {
             return Json("");

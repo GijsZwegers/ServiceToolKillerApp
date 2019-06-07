@@ -12,13 +12,17 @@ namespace ServiceTool.Logic
 
         public CustomerUser(CustomerUserStruct customerUserStruct)
         {
+            this.Id = customerUserStruct.Id;
             this.Mail = customerUserStruct.Mail;
             this.Name = customerUserStruct.Name;
             this.IsActive = customerUserStruct.IsActive;
             this.DateOfBirth = customerUserStruct.DateOfBirth;
             this.Pin = customerUserStruct.Pin;
+            this.CompanyId = customerUserStruct.CompanyId;
         }
 
+        public int Id { get; set; }
+        public int CompanyId { get; set; }
         public override string Mail { get; set; }
         public override string Name { get; set; }
         public override string LastName { get; set; }

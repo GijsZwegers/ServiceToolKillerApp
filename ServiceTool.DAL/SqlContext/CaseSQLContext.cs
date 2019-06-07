@@ -1,4 +1,5 @@
 ﻿using ServiceTool.DAL.ContextInterfaces;
+using ServiceTool.DAL.Helper;
 using ServiceTool.DAL.Interface;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace ServiceTool.DAL.SqlContext
 
             _connection.SqlConnection.Open();
 
-            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] FROM [Case]" +
+            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active], [Case].[LastEdited] FROM [Case]" +
                 "INNER JOIN [CaseStatus] ON " +
                 "CaseStatus.idCaseStatus = [Case].[idCaseStatus] " +
                 "WHERE [Case].[idCase] = @idCase", _connection.SqlConnection);
@@ -57,7 +58,8 @@ namespace ServiceTool.DAL.SqlContext
                     reader.GetString(0),
                     new CaseStatusStruct(reader.GetString(1)),
                     reader.GetString(2),
-                    reader.GetBoolean(3));
+                    reader.GetBoolean(3),
+                    reader.GetDateTime(4));
             }
 
             #region oldcode
@@ -97,7 +99,7 @@ namespace ServiceTool.DAL.SqlContext
         {
             _connection.SqlConnection.Open();
 
-            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].id [CaseStatus].[Description], [Case].[Comment], [Case].[Active] FROM [Case]" +
+            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active], [Case].[idCase], [Case].[LastEdited] FROM [Case]" +
                 "INNER JOIN [CaseStatus] ON " +
                 "CaseStatus.idCaseStatus = [Case].[idCaseStatus]", _connection.SqlConnection);
 
@@ -108,10 +110,12 @@ namespace ServiceTool.DAL.SqlContext
             while (reader.Read())
             {
                 lcs.Add(new CaseStruct(
+                    reader.GetInt32(4),
                     reader.GetString(0),
                     new CaseStatusStruct(reader.GetString(1)),
-                    reader.GetString(2),
-                    reader.GetBoolean(3)));
+                    reader.SafeGetString(2),
+                    reader.GetBoolean(3),
+                    reader.GetDateTime(5)));
             }
 
             _connection.SqlConnection.Close();
@@ -123,7 +127,7 @@ namespace ServiceTool.DAL.SqlContext
         {
             _connection.SqlConnection.Open();
 
-            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].id [CaseStatus].[Description], [Case].[Comment], [Case].[Active] FROM [Case]" +
+            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].[idCaseStatus], [CaseStatus].[Description], [Case].[Comment], [Case].[Active], [Case].[LastEdited] FROM [Case]" +
                 "INNER JOIN [CaseStatus] ON " +
                 "CaseStatus.idCaseStatus = [Case].[idCaseStatus]" +
                 "WHERE [Case].idCompany = @idCompany", _connection.SqlConnection);
@@ -136,10 +140,14 @@ namespace ServiceTool.DAL.SqlContext
             while (reader.Read())
             {
                 lcs.Add(new CaseStruct(
-                    reader.GetString(0),
-                    new CaseStatusStruct(reader.GetString(1)),
-                    reader.GetString(2),
-                    reader.GetBoolean(3)));
+                    reader.GetString(0), //CaseNumber
+                    new CaseStatusStruct(
+                        reader.GetInt32(1),  //id casestatus
+                        reader.GetString(2) //description
+                    ), 
+                    reader.GetString(3), //comment
+                    reader.GetBoolean(4), //active
+                    reader.GetDateTime(5)));  //lastedited
             }
 
             _connection.SqlConnection.Close();

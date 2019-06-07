@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using ServiceTool.DAL;
 using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
@@ -25,6 +26,11 @@ namespace ServiceTool.Presentation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAntiforgery(options => options.HeaderName = "XSRF-TOKEN")
+            .AddMvc()
+            .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
             // INFO: MVC core needs this to implement cookie authentication. The session information will be now stored in a session Cookie
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

@@ -1,6 +1,10 @@
-﻿@{
+﻿@model ServiceTool.Presentation.Models.CaseViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
+
+@Html.AntiForgeryToken()
+
 
 <div class="container-fluid">
 
@@ -13,14 +17,86 @@
     </ol>
 
     <!-- Page Content -->
+    @*
     <div class="text-center">
         <h1 class="display-4">Welcome</h1>
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
+    *@
 
-    @if (User.IsInRole("Administrators"))
-    {
-    <a>lalalla</a>
-    }
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Cases Overzicht
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="caseoverviewtable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>CaseNumber</th>
+                            <th>Description</th>
+                            <th>Comment</th>
+                            <th>Active</th>
+                            <th>LastEdited</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>CaseNumber</th>
+                            <th>Description</th>
+                            <th>Comment</th>
+                            <th>Active</th>
+                            <th>LastEdited</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var cs in Model.CaseList)
+                        {
+                            <tr>
 
-</div>
+                                <td>@cs.CaseNumber      @*CaseNumber*@</td>
+                                <td>@cs.Description     @*Description*@</td>
+                                <td>@cs.Status          @*Comment*@</td>
+                                <td>@cs.Active          @*Active*@</td>
+                                <td>@cs.LastEdited      @*LastEdited*@</td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+    </div>
+    @*<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+    <script>
+        var table = $('#caseoverviewtable').DataTable({
+            language: {
+                processing: "Data laden...",
+                zeroRecords: "Geen overeenkomsten gevonden"
+            },
+        }});
+
+        $('#caseoverviewtable tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+            // alert( 'You clicked on '+data[0]+'\'s row' );
+            $('.hidden').fadeOut(200);
+            //$('#CaseDiv').load("./assets/php/case.php?CaseNumber=);
+
+            $.ajax({
+                type: 'GET',
+                url: '/Index?handler=" + data[0]',
+                contentType: 'json',
+                success: function (result) {
+                    console.log('Data received: ');
+                    console.log(result);
+                }
+            });
+
+            $('.hidden').fadeToggle(1000);
+        });
+    </script>
