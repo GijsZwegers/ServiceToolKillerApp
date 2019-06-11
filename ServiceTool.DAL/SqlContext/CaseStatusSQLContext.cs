@@ -9,79 +9,75 @@ namespace ServiceTool.DAL.SqlContext
 {
     public class CaseStatusSQLContext : ICaseStatusContext
     {
-        
-        const string connectionstring = @"Data Source=DESKTOPTHINKPAD;Initial Catalog=ServiceTool;Integrated Security=True";
 
-        private SqlConnection conn;
+        private readonly DatabaseConnection _connection;
 
-        private SqlConnection GetConnection()
+        public CaseStatusSQLContext(DatabaseConnection connection)
         {
-            return conn = new SqlConnection(connectionstring);
+            _connection = connection;
         }
+
+        public CaseStatusSQLContext()
+        {}
 
         public List<CaseStatusStruct> GetAll()
         {
             List<CaseStatusStruct> caseStatusStructs = new List<CaseStatusStruct>();
-            using (GetConnection())
+
+            _connection.SqlConnection.Open();
+
+            string query = "SELECT * FROM CaseStatus";
+                
+            SqlCommand command = new SqlCommand(query, _connection.SqlConnection);
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                string query = "SELECT * FROM CaseStatus";
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        caseStatusStructs.Add(new CaseStatusStruct(
-                            reader.GetInt32(0),
-                            reader.GetString(1)
-                            ));
-                    }
-                    conn.Close();
+                    caseStatusStructs.Add(new CaseStatusStruct(
+                        reader.GetInt32(0),
+                        reader.GetString(1)
+                        ));
                 }
             }
+
+            _connection.SqlConnection.Close();
+
             return caseStatusStructs;
         }
 
         public void NewCaseStatus(CaseStatusStruct caseStatus)
         {
-            using (GetConnection())
-            {
-                string query = "INSERT INTO CaseStatus(Description) VALUES (@description)";
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                command.Parameters.Add(new SqlParameter("@description", caseStatus.Description));
-                command.ExecuteNonQuery();
-                conn.Close();
-            }
+
+            _connection.SqlConnection.Open();
+
+            string query = "INSERT INTO CaseStatus(Description) VALUES (@description)";
+            SqlCommand command = new SqlCommand(query, _connection.SqlConnection);
+            command.Parameters.Add(new SqlParameter("@description", caseStatus.Description));
+            command.ExecuteNonQuery();
+
+            _connection.SqlConnection.Close();
         }
 
         public void RemoveCaseStatus(int id)
         {
-            using (GetConnection())
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("DELETE FROM CaseStatus WHERE idCaseStatus = @id", conn))
-                {
-                    command.Parameters.Add(new SqlParameter("@id", id));
-                    command.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
+            _connection.SqlConnection.Open();
+            var cmd = new SqlCommand("DELETE FROM CaseStatus WHERE idCaseStatus = @id", _connection.SqlConnection);
+            cmd.Parameters.Add(new SqlParameter("@id", id));
+            cmd.ExecuteNonQuery();
+
+            _connection.SqlConnection.Close();
         }
 
         public void Update(int id, CaseStatusStruct caseStatus)
         {
-            using (GetConnection())
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("UPDATE CaseStatus(Description) " +
-                    "VALUES (@Description) WHERE idCaseStatus ='" + id, conn))
-                {
-                    command.Parameters.Add(new SqlParameter("@description", caseStatus.Description));
-                    command.ExecuteNonQuery();
-                }
-                conn.Close();
-            }
+            _connection.SqlConnection.Open();
+
+            var cmd  = new SqlCommand("UPDATE CaseStatus(Description) " +
+                "VALUES (@Description) WHERE idCaseStatus ='" + id, _connection.SqlConnection);
+                cmd.Parameters.Add(new SqlParameter("@description", caseStatus.Description));
+                cmd.ExecuteNonQuery();
+
+            _connection.SqlConnection.Close();
         }
     }
 }

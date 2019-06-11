@@ -91,7 +91,6 @@ namespace ServiceTool.DAL.SqlContext
         //Nadenken of ik dit niet beter een boolean kan maken en of ik aan de hand van het casenummer ga werken of aan de hand van het meegegeven ID
         public bool UpdateStatus(string caseNumber, int idCaseStatus)
         {
-
             throw new NotImplementedException();
         }
 
@@ -127,7 +126,7 @@ namespace ServiceTool.DAL.SqlContext
         {
             _connection.SqlConnection.Open();
 
-            var cmd = new SqlCommand("SELECT [Case].[CaseNumber], [CaseStatus].[idCaseStatus], [CaseStatus].[Description], [Case].[Comment], [Case].[Active], [Case].[LastEdited] FROM [Case]" +
+            var cmd = new SqlCommand("SELECT [Case].[IdCase], [Case].[CaseNumber], [CaseStatus].[idCaseStatus], [CaseStatus].[Description], [Case].[Comment], [Case].[Active], [Case].[LastEdited] FROM [Case]" +
                 "INNER JOIN [CaseStatus] ON " +
                 "CaseStatus.idCaseStatus = [Case].[idCaseStatus]" +
                 "WHERE [Case].idCompany = @idCompany", _connection.SqlConnection);
@@ -140,14 +139,15 @@ namespace ServiceTool.DAL.SqlContext
             while (reader.Read())
             {
                 lcs.Add(new CaseStruct(
-                    reader.GetString(0), //CaseNumber
+                    reader.GetInt32(0), //CaseId
+                    reader.GetString(1), //CaseNumber
                     new CaseStatusStruct(
-                        reader.GetInt32(1),  //id casestatus
-                        reader.GetString(2) //description
+                        reader.GetInt32(2),  //id casestatus
+                        reader.GetString(3) //description
                     ), 
-                    reader.GetString(3), //comment
-                    reader.GetBoolean(4), //active
-                    reader.GetDateTime(5)));  //lastedited
+                    reader.GetString(4), //comment
+                    reader.GetBoolean(5), //active
+                    reader.GetDateTime(6)));  //lastedited
             }
 
             _connection.SqlConnection.Close();

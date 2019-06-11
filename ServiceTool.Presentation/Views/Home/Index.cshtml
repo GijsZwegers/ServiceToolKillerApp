@@ -18,10 +18,10 @@
 
     <!-- Page Content -->
     @*
-    <div class="text-center">
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    </div>
+        <div class="text-center">
+            <h1 class="display-4">Welcome</h1>
+            <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        </div>
     *@
 
     <!-- DataTables Example -->
@@ -35,6 +35,7 @@
                 <table class="table table-bordered" id="caseoverviewtable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>CaseNumber</th>
                             <th>Description</th>
                             <th>Comment</th>
@@ -44,6 +45,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th>CaseNumber</th>
                             <th>Description</th>
                             <th>Comment</th>
@@ -55,12 +57,12 @@
                         @foreach (var cs in Model.CaseList)
                         {
                             <tr>
-
-                                <td>@cs.CaseNumber      @*CaseNumber*@</td>
-                                <td>@cs.Description     @*Description*@</td>
-                                <td>@cs.Status          @*Comment*@</td>
-                                <td>@cs.Active          @*Active*@</td>
-                                <td>@cs.LastEdited      @*LastEdited*@</td>
+                                <td>@cs.id              @*CaseId*@      </td>
+                                <td>@cs.CaseNumber      @*CaseNumber*@  </td>
+                                <td>@cs.Description     @*Description*@ </td>
+                                <td>@cs.Status          @*Comment*@     </td>
+                                <td>@cs.Active          @*Active*@      </td>
+                                <td>@cs.LastEdited      @*LastEdited*@  </td>
                             </tr>
 
                         }
@@ -70,16 +72,24 @@
         </div>
 
 
+    </div>
+    <div class="hidden">
 
     </div>
+
     @*<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
     <script>
         var table = $('#caseoverviewtable').DataTable({
-            language: {
-                processing: "Data laden...",
-                zeroRecords: "Geen overeenkomsten gevonden"
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Dutch.json"
             },
-        }});
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": true,
+                    "searchable": false
+                }]
+        });
 
         $('#caseoverviewtable tbody').on('click', 'tr', function () {
             var data = table.row(this).data();
@@ -89,14 +99,17 @@
 
             $.ajax({
                 type: 'GET',
-                url: '/Index?handler=" + data[0]',
+                url: '../Cases/CaseDetails?CaseNumber=' + data[0],
                 contentType: 'json',
                 success: function (result) {
                     console.log('Data received: ');
                     console.log(result);
+                    $('.hidden').html(result);
+                    $('.hidden').fadeToggle(1000);
                 }
             });
 
-            $('.hidden').fadeToggle(1000);
+
+
         });
     </script>

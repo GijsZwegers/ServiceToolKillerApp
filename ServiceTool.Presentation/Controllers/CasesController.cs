@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ServiceTool.DAL;
 using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.Logic;
 using ServiceTool.Presentation.Assets;
@@ -16,12 +17,27 @@ namespace ServiceTool.Presentation.Controllers
     {
         private Logic.Case Case;
         private Logic.CaseCollection CaseCollection;
+        private Logic.CaseStatusCollection CaseStatusCollection;
 
-        public CasesController(ICaseContext caseContext)
+        public CasesController(ICaseContext caseContext, ICaseStatusContext caseStatusContext)
         {
             Case = new Logic.Case(caseContext);
             CaseCollection = new Logic.CaseCollection(caseContext);
+            CaseStatusCollection = new Logic.CaseStatusCollection(caseStatusContext);
         }
+
+        [HttpGet]
+        public IActionResult CaseDetails(int CaseNumber)
+        {
+
+            CaseDetailsViewModel csdvm = new CaseDetailsViewModel();
+
+            csdvm.Case = new Models.Case(Case.Get(CaseNumber));
+            csdvm.caseStatuses = CaseStatusCollection.GetAll();
+
+            return View(csdvm);
+        }
+
 
         public IActionResult Index()
         {

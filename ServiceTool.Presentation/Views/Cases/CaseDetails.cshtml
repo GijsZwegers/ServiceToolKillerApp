@@ -1,0 +1,54 @@
+﻿@model ServiceTool.Presentation.Models.CaseDetailsViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Case: @Model.Case.CaseNumber
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="CaseNumber">Case Nummer</label>
+                    <input type="text" class="form-control" id="CaseNumber" value=" @*Casenummer*@ "disabled>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="inputState">Status</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>@Model.Case.Status</option>
+                        @foreach (var cs in Model.caseStatuses)
+                        {
+                            <option value="@cs.Id">@cs.Description</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputCity">Bedrijfs naam</label>
+                    <input type="text" class="form-control" value="@Model.Case.Company@*Bedrijfsnaam*@" disabled>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputPassword4">Datum</label>
+                    <input type="Date" class="form-control" id="inputPassword4" value="@Model.Case.LastEdited@*CaseDate*@" disabled>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-10">
+                    <label for="inputAddress2">Status beschrijving</label>
+                    <input type="text" class="form-control" id="inputAddress2" value="@Model.Case.Description @*Case status description*@" disabled>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputState">Actief</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>@Model.Case.Active @*Actief of inactief*@</option>
+                        <option> @if (Model.Case.Active) {<a>Inactief</a>} else  {<a>Actief</a>}</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Case bijwerken</button>
+        </form>
+    </div>
+    <div class="card-footer small text-muted">Laatst bijgewerkt op: @Model.Case.LastEdited @*Datum*@</div>

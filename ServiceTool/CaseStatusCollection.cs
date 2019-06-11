@@ -1,4 +1,5 @@
-﻿using ServiceTool.DAL.ContextInterfaces;
+﻿using ServiceTool.DAL;
+using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Factory;
 using ServiceTool.DAL.Interface;
 using System;
@@ -9,37 +10,36 @@ namespace ServiceTool.Logic
 {
     public class CaseStatusCollection
     {
+        private readonly ICaseStatusContext _caseContext;
 
-        //private readonly ICaseContext _caseContext;
+        public CaseStatusCollection(ICaseStatusContext caseContext)
+        {
+            _caseContext = caseContext;
+        }
 
-        //public CaseStatusCollection(ICaseContext caseContext)
-        //{
-        //    _caseContext = caseContext;
-        //}
-
-        //public CaseStatusCollection()
-        //{}
+        public CaseStatusCollection()
+        { }
 
         public static ICaseStatusCollectionDAL CaseStatusCollectionDAL { get; set; } = CaseStatusFactory.CreateCaseStatusCollectionDAL();
 
-        public static void NewCaseStatus(CaseStatusStruct caseStatus)
+        public void NewCaseStatus(CaseStatusStruct caseStatus)
         {
-            CaseStatusCollectionDAL.NewCaseStatus(caseStatus);
+            _caseContext.NewCaseStatus(caseStatus);
         }
 
-        public static List<CaseStatus> GetAll()
+        public List<CaseStatus> GetAll()
         {
             List<CaseStatus> caseStatuses = new List<CaseStatus>();
-            foreach (CaseStatusStruct caseStatus in CaseStatusCollectionDAL.GetAll())
+            foreach (CaseStatusStruct caseStatus in _caseContext.GetAll())
             {
                 caseStatuses.Add(new CaseStatus(caseStatus));
             }
             return caseStatuses;
         }
 
-        public static void RemoveCaseStatus(int id)
+        public void RemoveCaseStatus(int id)
         {
-            CaseStatusCollectionDAL.RemoveCaseStatus(id);
+            _caseContext.RemoveCaseStatus(id);
         }
     }
 }

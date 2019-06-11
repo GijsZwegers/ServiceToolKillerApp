@@ -30,6 +30,12 @@ namespace ServiceTool.Presentation.Controllers
             CaseCollection = new CaseCollection(caseContext);
         }
 
+        public IActionResult CaseDetails(int CaseNumber)
+        {
+
+            Models.Case cs = new Models.Case(Case.Get(CaseNumber));
+            return View(cs);
+        }
 
         public IActionResult Index()
         {

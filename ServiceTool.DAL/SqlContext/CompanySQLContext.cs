@@ -37,7 +37,7 @@ namespace ServiceTool.DAL.SqlContext
             using (GetConnection())
             {
                 string query = "SELECT " +
-                    "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] " +
+                    "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] [Case].[idCase] " +
                     "FROM [Case], [Case].[LastEdited] INNER JOIN CaseStatus ON " +
                     "[Case].[idCaseStatus] = [CaseStatus].[idCaseStatus] WHERE [Case].[idCompany] ="+ CompanyId;
                 conn.Open();
@@ -47,11 +47,12 @@ namespace ServiceTool.DAL.SqlContext
                     while (reader.Read())
                     {
                         cases.Add(new CaseStruct(
-                            reader.GetString(0),
-                            new CaseStatusStruct(reader.GetString(1)),
-                            reader.GetString(2),
-                            reader.GetBoolean(3),
-                            reader.GetDateTime(4)));
+                            reader.GetInt32(0),
+                            reader.GetString(1),
+                            new CaseStatusStruct(reader.GetString(2)),
+                            reader.GetString(3),
+                            reader.GetBoolean(4),
+                            reader.GetDateTime(5)));
                     }
                     conn.Close();
                 }
