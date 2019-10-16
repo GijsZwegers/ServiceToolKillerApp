@@ -1,4 +1,5 @@
-﻿using ServiceTool.DAL.ContextInterfaces;
+﻿using System.Threading.Tasks;
+using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
 
 namespace ServiceTool.DAL.Repositorys
@@ -11,6 +12,12 @@ namespace ServiceTool.DAL.Repositorys
         {
             ServiceUserContext = serviceUserContext;
         }
+
+        public Task<string> ApiLoginAsync(string Username, string Password)
+        {
+            return ServiceUserContext.ApiLoginAsync(Username, Password);
+        }
+
         public int GetPin()
         {
             return ServiceUserContext.GetPin();

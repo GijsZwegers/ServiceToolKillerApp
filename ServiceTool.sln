@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.DAL.Factory", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.UnitTest", "ServiceToolUnitTests\ServiceTool.UnitTest.csproj", "{C6FABE99-6892-4DE8-B369-705669DD44B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTool.Presentation", "ServiceTool.Presentation\ServiceTool.Presentation.csproj", "{CF95D232-53F6-4BA4-BE85-F102D253E15F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTool.Presentation", "ServiceTool.Presentation\ServiceTool.Presentation.csproj", "{CF95D232-53F6-4BA4-BE85-F102D253E15F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTool.Logic.Interface", "ServiceTool.Logic.Interface\ServiceTool.Logic.Interface.csproj", "{1BDC2D94-82A0-4C33-86CB-8ED1FF2C5EBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF95D232-53F6-4BA4-BE85-F102D253E15F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDC2D94-82A0-4C33-86CB-8ED1FF2C5EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDC2D94-82A0-4C33-86CB-8ED1FF2C5EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDC2D94-82A0-4C33-86CB-8ED1FF2C5EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDC2D94-82A0-4C33-86CB-8ED1FF2C5EBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

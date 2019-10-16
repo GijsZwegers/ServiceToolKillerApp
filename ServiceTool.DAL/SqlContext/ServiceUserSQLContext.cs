@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 using ServiceTool.DAL.ContextInterfaces;
+using System.Threading.Tasks;
+using ServiceTool.DAL.Model.Json;
 
 namespace ServiceTool.DAL.SqlContext
 {
@@ -18,7 +20,6 @@ namespace ServiceTool.DAL.SqlContext
 
         public ServiceUserSQLContext()
         {}
-
 
         public string GetServiceUserHashedPassword(string email)
         {
@@ -159,5 +160,26 @@ namespace ServiceTool.DAL.SqlContext
         {
             throw new NotImplementedException();
         }
+
+        public Task<string> ApiLoginAsync(string Username, string Password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Customer> ApiGetCustomerAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        async Task<ServiceUserStruct> IServiceUserContext.ApiGetCustomerAsync()
+        {
+            //var response = await _httpClient.GetAsync(Apiurl + "/integration/customer/token");
+            //var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
+            return new ServiceUserStruct(
+                
+                );
+        }
+
+
     }
 }

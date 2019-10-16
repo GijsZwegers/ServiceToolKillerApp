@@ -62,27 +62,6 @@ namespace ServiceTool.DAL.SqlContext
                     reader.GetDateTime(4));
             }
 
-            #region oldcode
-            //using (_connection.SqlConnection)
-            //{
-            //    _connection.SqlConnection.Open();
-            //    using (SqlCommand command = new SqlCommand("SELECT " +
-            //    "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] " +
-            //    "FROM [Case] " +
-            //    "INNER JOIN [CaseStatus] ON " +
-            //    "CaseStatus.idCaseStatus = [Case].[idCaseStatus] " +
-            //    "WHERE [Case].[idCase] = @idCase"))
-            //    {
-            //        command.Parameters.Add(new SqlParameter("@idCase", id));
-            //        using (SqlDataReader reader = command.ExecuteReader())
-            //        {
-            //            while (reader.Read())
-            //            {
-            //                cs = new CaseStruct(reader.GetString(0), new CaseStatusStruct(reader.GetString(1)), reader.GetString(2), reader.GetBoolean(3));
-            //            }
-            //        }
-            //    }
-            #endregion
             _connection.SqlConnection.Close();
             
             return cs;

@@ -56,6 +56,7 @@ namespace ServiceTool.Presentation.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            serverUserCollection.GetUserTokenAsync("gijszwegers", "Austerlorp1");
             return View();
         }
 

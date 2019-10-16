@@ -52,8 +52,11 @@ namespace ServiceTool.Presentation.Controllers
         {
             // Lets first check if the Model is valid or not
             if (!ModelState.IsValid) return View(model);
+            await serverUserCollection.GetUserTokenAsync(model.Username, model.Password);
 
-            ServiceUser serviceuser = serverUserCollection.Login(model.Email, model.Password);
+            ServiceUser serviceuser =  await serverUserCollection.getCustomerAsync();
+
+            //ServiceUser serviceuser = serverUserCollection.Login(model.Email, model.Password);
 
             //TODO: Add code for Customer User
 
@@ -64,7 +67,7 @@ namespace ServiceTool.Presentation.Controllers
             }
 
             //INFO: Claims are use to specify properties of an Identity(a user)
-            List<Claim> claims = null;
+            List<Claim> claims = new List<Claim>();
             if ((serviceuser != null))
             {
                 claims = new List<Claim>
@@ -75,7 +78,7 @@ namespace ServiceTool.Presentation.Controllers
                     new Claim(ClaimTypes.Role, Role.Admin)
                 };
             }
-
+            // 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties();
 
@@ -104,8 +107,6 @@ namespace ServiceTool.Presentation.Controllers
             CustomerUser customeruser = customerUserCollection.Login(model.Email, model.pin);
 
             //TODO: Add code for Customer User
-
-            //CustomerUser customerUser =  
 
             if (customeruser == null)
             {

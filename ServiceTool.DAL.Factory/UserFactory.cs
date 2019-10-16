@@ -1,4 +1,5 @@
-﻿using ServiceTool.DAL.Interface;
+﻿using ServiceTool.DAL.ApiContext;
+using ServiceTool.DAL.Interface;
 using ServiceTool.DAL.Repositorys;
 using ServiceTool.DAL.SqlContext;
 using System;
@@ -19,7 +20,7 @@ namespace ServiceTool.DAL.Factory
 
         public static IServiceUserCollection CreateServiceCollection()
         {
-            return new ServiceUserRepository(new ServiceUserSQLContext());
+            return new ServiceUserRepository(new ServiceUserApiContext());
         }
     }
 }

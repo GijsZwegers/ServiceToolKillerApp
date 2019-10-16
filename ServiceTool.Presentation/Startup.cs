@@ -7,10 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 using ServiceTool.DAL;
+using ServiceTool.DAL.ApiContext;
 using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
 using ServiceTool.DAL.Repositorys;
 using ServiceTool.DAL.SqlContext;
+using System;
 
 namespace ServiceTool.Presentation
 {
@@ -55,6 +57,8 @@ namespace ServiceTool.Presentation
             services.AddScoped<ICaseStatusContext, CaseStatusSQLContext>();
             services.AddScoped<IServiceUserContext, ServiceUserSQLContext>();
             services.AddScoped<ICustomerUserContext, CustomerUserSQLContext>();
+
+            services.AddHttpClient<IServiceUserContext, ServiceUserApiContext>();
 
             //services.AddScoped<ICustomerUser, CustomerUserRepository>();
             //services.AddScoped<IServiceUser, ServiceUserRepository>();

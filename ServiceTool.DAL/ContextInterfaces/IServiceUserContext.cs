@@ -1,7 +1,9 @@
 ﻿using ServiceTool.DAL.Interface;
+using ServiceTool.DAL.Model.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ServiceTool.DAL.ContextInterfaces
 {
@@ -15,5 +17,7 @@ namespace ServiceTool.DAL.ContextInterfaces
         ServiceUserStruct Register(string Name, string lastname, string Email, string Password);
         string GetServiceUserHashedPassword(string Email);
         bool Logout();
+        Task<string> ApiLoginAsync(string Username, string Password);
+        Task<ServiceUserStruct> ApiGetCustomerAsync();
     }
 }
