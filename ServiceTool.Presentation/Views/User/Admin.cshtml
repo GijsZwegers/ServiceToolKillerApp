@@ -1,4 +1,4 @@
-﻿@model ServiceTool.Presentation.Models.LogininstallerViewModel
+﻿@model ServiceTool.Presentation.Models.LoginAdminViewModel
 
 @{
     Layout = null;
@@ -32,21 +32,29 @@
         <div class="card card-login mx-auto mt-5">
             <div class="card-header">Login</div>
             <div class="card-body">
-                <form asp-action="LoginCustomerUser" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
+                <form asp-action="Login" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-                            <label for="inputEmail">Email address</label>
+                            <input asp-for="Username" type="text" id="inputUsername" class="form-control" placeholder="Gebruikersnaam" required="required" autofocus="autofocus">
+                            <label for="inputUsername">Gebruikersnaam</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input asp-for="pin" type="password" id="inputPassword" class="form-control" placeholder="Pincode" required="required">
-                            <label for="inputPassword">Pincode</label>
+                            <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+                            <label for="inputPassword">Password</label>
                             <!-- <input type="text" name="test"> -->
                         </div>
                     </div>
+                    <!-- <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="remember-me">
+                          Remember Password
+                        </label>
+                      </div>
+                    </div> -->
                     <input type="submit" class="btn btn-primary btn-block" value="Login">
                     <!-- <a class="btn btn-primary btn-block" href="index.php">Login</a> -->
                 </form>

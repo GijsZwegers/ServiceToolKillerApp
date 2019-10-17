@@ -33,7 +33,7 @@ namespace ServiceTool.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public IActionResult Admin()
         {
             return View();
         }
@@ -48,7 +48,7 @@ namespace ServiceTool.Presentation.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Admin(LoginAdminViewModel model, string returnUrl)
         {
             // Lets first check if the Model is valid or not
             if (!ModelState.IsValid) return View(model);
@@ -57,8 +57,6 @@ namespace ServiceTool.Presentation.Controllers
             ServiceUser serviceuser =  await serverUserCollection.getCustomerAsync();
 
             //ServiceUser serviceuser = serverUserCollection.Login(model.Email, model.Password);
-
-            //TODO: Add code for Customer User
 
             if (serviceuser == null)
             {
@@ -91,7 +89,7 @@ namespace ServiceTool.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Installer()
+        public IActionResult Login()
         {
             return View();
         }
@@ -99,12 +97,14 @@ namespace ServiceTool.Presentation.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginCustomerUser(LogininstallerViewModel model, string returnUrl)
+        public async Task<ActionResult> LoginCustomerUser(LoginCustomerViewModel model, string returnUrl)
         {
             // Lets first check if the Model is valid or not
             if (!ModelState.IsValid) return View(model);
 
-            CustomerUser customeruser = customerUserCollection.Login(model.Email, model.pin);
+
+            //add function for when pin is filled in.
+            CustomerUser customeruser = customerUserCollection.Login(model.Email, model.Password);
 
             //TODO: Add code for Customer User
 

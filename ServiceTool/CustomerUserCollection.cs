@@ -14,16 +14,16 @@ namespace ServiceTool.Logic
             _CustomerUserContext = customerUserContext;
         }
 
-        public CustomerUser Login(string mail, string pin)
+        public CustomerUser Login(string mail, string password)
         {
-            if (pin == null)
+            if (password == null)
             {
-                throw new ArgumentNullException(nameof(pin));
+                throw new ArgumentNullException(nameof(password));
             }
 
             CustomerUser customerUser = new CustomerUser();
 
-            customerUser = new CustomerUser(_CustomerUserContext.GetCustomerUser(mail, pin));
+            customerUser = new CustomerUser(_CustomerUserContext.GetCustomerUser(mail, password));
 
             //string hash = _CustomerUserContext.GetCustomerUserHashedPassword(mail);
 

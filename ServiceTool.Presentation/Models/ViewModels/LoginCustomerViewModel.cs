@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace ServiceTool.Presentation.Models
 {
-    public class LoginViewModel
+    public class LoginCustomerViewModel
     {
         [Required]
-        public string Username{ get; set; }
+        public string Email { get; set; }
 
         [Required]
-        [MinLength(8)]
         public string Password { get; set; }
+
+        public string pin { get; set; }
     }
 }

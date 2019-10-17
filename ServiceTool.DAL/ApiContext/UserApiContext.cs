@@ -12,15 +12,16 @@ using ServiceTool.DAL.Model.Json;
 
 namespace ServiceTool.DAL.ApiContext
 {
-    public class ServiceUserApiContext : IServiceUserContext
+    public class UserApiContext : IUserContext
     {
         private readonly HttpClient _httpClient;
         //private readonly string _remoteServiceBaseUrl;
         private readonly string Apiurl = "http://127.0.0.1/magento/index.php/rest/V1";
-        public ServiceUserApiContext()
+
+        public UserApiContext()
         {}
 
-        public ServiceUserApiContext(HttpClient httpClient)
+        public UserApiContext(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
@@ -39,7 +40,7 @@ namespace ServiceTool.DAL.ApiContext
             return responseString;
         }
 
-        async Task<ServiceUserStruct> IServiceUserContext.ApiGetCustomerAsync()
+        async Task<ServiceUserStruct> ApiGetCustomerAsync()
         {
             var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
             var cms =  JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
@@ -97,6 +98,19 @@ namespace ServiceTool.DAL.ApiContext
             throw new NotImplementedException();
         }
 
+        public Task<string> ApiLoginAsync(string Mail, string Password, int Pin)
+        {
+            throw new NotImplementedException();
+        }
 
+        Task<ServiceUserStruct> IUserContext.ApiGetCustomerAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> ApiLoginAdminAsync(string Mail, string Password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

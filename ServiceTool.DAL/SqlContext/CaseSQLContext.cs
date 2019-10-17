@@ -61,7 +61,6 @@ namespace ServiceTool.DAL.SqlContext
                     reader.GetBoolean(3),
                     reader.GetDateTime(4));
             }
-
             _connection.SqlConnection.Close();
             
             return cs;

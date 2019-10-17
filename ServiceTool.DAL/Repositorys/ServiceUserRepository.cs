@@ -6,9 +6,9 @@ namespace ServiceTool.DAL.Repositorys
 {
     public class ServiceUserRepository : IServiceUser, IServiceUserCollection
     {
-        private IServiceUserContext ServiceUserContext;
+        private ContextInterfaces.IServiceUserContext ServiceUserContext;
 
-        public ServiceUserRepository(IServiceUserContext serviceUserContext) 
+        public ServiceUserRepository(ContextInterfaces.IServiceUserContext serviceUserContext) 
         {
             ServiceUserContext = serviceUserContext;
         }

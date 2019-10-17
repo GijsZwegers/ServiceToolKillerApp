@@ -18,6 +18,5 @@ namespace ServiceTool.DAL.ContextInterfaces
         string GetServiceUserHashedPassword(string Email);
         bool Logout();
         Task<string> ApiLoginAsync(string Username, string Password);
-        Task<ServiceUserStruct> ApiGetCustomerAsync();
     }
 }

@@ -23,6 +23,8 @@ namespace ServiceTool.Presentation
             Configuration = configuration;
         }
 
+        int CookieLifetimeInDays = 30;
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -41,8 +43,10 @@ namespace ServiceTool.Presentation
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                     options.Cookie.SameSite = SameSiteMode.Lax;
                     options.Cookie.Name = "ServiceTool.AuthCookieAspNetCore";
-                    options.LoginPath = "/User/Installer";
+                    options.LoginPath = "/User/Login";
                     options.LogoutPath = "/User/Logout";
+                    //30 days timespan before cookie needs to be refreshed
+                    options.Cookie.MaxAge = new TimeSpan(CookieLifetimeInDays, 0, 0, 0);
                 });
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -53,15 +57,14 @@ namespace ServiceTool.Presentation
             });
 
             services.AddTransient(_ => new DatabaseConnection(Configuration.GetConnectionString("DefaultConnection")));
+            //SqlContext
             services.AddScoped<ICaseContext, CaseSQLContext>();
             services.AddScoped<ICaseStatusContext, CaseStatusSQLContext>();
-            services.AddScoped<IServiceUserContext, ServiceUserSQLContext>();
+            services.AddScoped<DAL.ContextInterfaces.IServiceUserContext, ServiceUserSQLContext>();
             services.AddScoped<ICustomerUserContext, CustomerUserSQLContext>();
-
-            services.AddHttpClient<IServiceUserContext, ServiceUserApiContext>();
-
-            //services.AddScoped<ICustomerUser, CustomerUserRepository>();
-            //services.AddScoped<IServiceUser, ServiceUserRepository>();
+            //HttpClient
+            //services.AddHttpClient<IServiceUserContext, UserApiContext>();
+            services.AddHttpClient<DAL.Interface.IUserCollectionDAL, UserApiContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

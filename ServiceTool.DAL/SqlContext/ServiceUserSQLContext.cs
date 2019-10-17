@@ -113,7 +113,6 @@ namespace ServiceTool.DAL.SqlContext
             }
 
             _connection.SqlConnection.Close();
-
             _connection.SqlConnection.Open();
 
             var sqlcmd2 = new SqlCommand("" +
@@ -170,16 +169,5 @@ namespace ServiceTool.DAL.SqlContext
         {
             throw new NotImplementedException();
         }
-
-        async Task<ServiceUserStruct> IServiceUserContext.ApiGetCustomerAsync()
-        {
-            //var response = await _httpClient.GetAsync(Apiurl + "/integration/customer/token");
-            //var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
-            return new ServiceUserStruct(
-                
-                );
-        }
-
-
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ServiceTool.Presentation.Models
 {
-    public class LogininstallerViewModel
+    public class LoginAdminViewModel
     {
         [Required]
-        public string Email { get; set; }
+        public string Username{ get; set; }
 
         [Required]
-        [MinLength(3)]
-        public string pin { get; set; }
+        [MinLength(8)]
+        public string Password { get; set; }
     }
 }

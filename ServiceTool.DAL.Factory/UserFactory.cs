@@ -18,9 +18,14 @@ namespace ServiceTool.DAL.Factory
             return new ServiceUserRepository(new ServiceUserSQLContext());
         }
 
-        public static IServiceUserCollection CreateServiceCollection()
+        //public static IServiceUserCollection CreateServiceCollection()
+        //{
+        //    return new ServiceUserRepository(new UserApiContext());
+        //}
+
+        public static IUserCollectionDAL CreateUserCollection()
         {
-            return new ServiceUserRepository(new ServiceUserApiContext());
+            return new UserRepository(new UserApiContext());
         }
     }
 }

@@ -10,9 +10,9 @@ namespace ServiceTool.Logic
     {
         //public static IServiceUserCollection ServiceUserCollection { get; set; } = UserFactory.CreateServiceCollection();
 
-        private readonly IServiceUserContext _serviceUserContext;
+        private readonly DAL.ContextInterfaces.IServiceUserContext _serviceUserContext;
 
-        public ServerUserCollection(IServiceUserContext serviceUserContext)
+        public ServerUserCollection(DAL.ContextInterfaces.IServiceUserContext serviceUserContext)
         {
             _serviceUserContext = serviceUserContext;
         }

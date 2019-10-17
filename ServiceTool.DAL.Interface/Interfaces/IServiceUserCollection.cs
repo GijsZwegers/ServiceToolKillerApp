@@ -9,6 +9,6 @@ namespace ServiceTool.DAL.Interface
     {
         ServiceUserStruct GetServiceUser(string email);
         ServiceUserStruct Register(string name, string email, string password);
-        Task<string> ApiLoginAsync(string Username, string Password);
+        //Task<string> ApiLoginAsync(string Username, string Password);
     }
 }
