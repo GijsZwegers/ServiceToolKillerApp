@@ -8,7 +8,7 @@ namespace ServiceTool.DAL.Factory
 {
     public class UserFactory
     {
-        public static ICustomerUser CreateCustomer()
+        public static ICustomerUserOLD CreateCustomer()
         {
             return new CustomerUserRepository(new CustomerUserSQLContext());
         }

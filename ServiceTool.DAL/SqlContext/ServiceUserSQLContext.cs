@@ -171,6 +171,21 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
+        //int IServiceUserContext.ResetPin(int NewPin)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public bool Login()
+        {
+            throw new NotImplementedException();
+        }
+
+        public CompanyUserStruct GetCustomerUser(string mail, string password)
+        {
+            throw new NotImplementedException();
+        }
+
         //async Task<ServiceUserStruct> ContextInterfaces.IUserCollectionDAL.ApiGetCustomerAsync()
         //{
         //    //var response = await _httpClient.GetAsync(Apiurl + "/integration/customer/token");

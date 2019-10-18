@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ServiceTool.DAL.ContextInterfaces
 {
-    public interface ICustomerUserContext
+    public interface ICompanyUserContext
     {
         int ResetPin(int NewPin);
         int GetPin();

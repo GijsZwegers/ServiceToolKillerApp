@@ -8,10 +8,10 @@ namespace ServiceTool.DAL.ContextInterfaces
 {
     public interface IUserContext
     {
-        Task<AdminUserStruct> ApiGetCustomerAsync();
-        Task<string> ApiLoginAsync(string Mail, string Password);
-        Task<string> ApiLoginAsync(string Mail, string Password, int Pin);
-        Task<string> ApiLoginAdminAsync(string UserName, string Password);
-        Task<string> ApiLoginAdminAsync();
+        Task<CompanyUserStruct> ApiGetCompanyuserAsync();
+        Task<string> ApiGetCompanyUserToken(string Mail, string Password, int? Pin);
+
+
+        //Task<string> ApiLoginAsync(string Mail, string Password);
     }
 }

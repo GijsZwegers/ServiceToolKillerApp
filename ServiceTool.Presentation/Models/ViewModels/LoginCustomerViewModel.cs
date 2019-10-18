@@ -14,6 +14,6 @@ namespace ServiceTool.Presentation.Models
         [Required]
         public string Password { get; set; }
 
-        public string pin { get; set; }
+        public int? pin { get; set; }
     }
 }

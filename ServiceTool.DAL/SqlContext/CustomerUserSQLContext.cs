@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ServiceTool.DAL.SqlContext
 {
-    public class CustomerUserSQLContext : ICustomerUserContext
+    public class CustomerUserSQLContext : IServiceUserContext
     {
         private readonly DatabaseConnection _connection;
 
@@ -71,6 +72,41 @@ namespace ServiceTool.DAL.SqlContext
             _connection.SqlConnection.Close();
 
             return customerUserStruct;
+        }
+
+        bool IServiceUserContext.ResetPin(int NewPin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SetToInactive()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetPinForCustomer(int CustomerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AdminUserStruct GetServiceUser(string Email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public AdminUserStruct Register(string Name, string lastname, string Email, string Password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetServiceUserHashedPassword(string Email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> ApiLoginAsync(string Username, string Password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

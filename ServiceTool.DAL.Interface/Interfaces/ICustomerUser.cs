@@ -4,12 +4,12 @@ using System.Text;
 
 namespace ServiceTool.DAL.Interface
 {
-    public interface ICustomerUser
+    public interface ICustomerUserOLD
     {
         //IUserDAL userDAL();
-        int ResetPin(int NewPin);
-        int GetPin();
-        bool Login();
-        bool Logout();
+        //int ResetPin(int NewPin);
+        //int GetPin();
+        //bool Login();
+        //bool Logout();
     }
 }

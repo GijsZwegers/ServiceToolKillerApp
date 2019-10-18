@@ -3,9 +3,9 @@ using ServiceTool.DAL.Interface;
 
 namespace ServiceTool.DAL.Repositorys
 {
-    public class CustomerUserRepository : ICustomerUser
+    public class CustomerUserRepository : ICustomerUserOLD
     {
-        private ICustomerUserContext CustomerUserContext;
+        private IServiceUserContext CustomerUserContext;
 
         //private readonly DatabaseConnection _connection;
 
@@ -20,7 +20,7 @@ namespace ServiceTool.DAL.Repositorys
         //    _connection = connection;
         //}
 
-        public CustomerUserRepository(ICustomerUserContext customerUserContext)
+        public CustomerUserRepository(IServiceUserContext customerUserContext)
         {
             CustomerUserContext = customerUserContext;
         }
@@ -30,19 +30,19 @@ namespace ServiceTool.DAL.Repositorys
             return CustomerUserContext.GetPin();
         }
 
-        public bool Login()
-        {
-            return CustomerUserContext.Login();
-        }
+        //public bool Login()
+        //{
+        //    return CustomerUserContext.Login();
+        //}
 
         public bool Logout()
         {
             return CustomerUserContext.Logout();
         }
 
-        public int ResetPin(int NewPin)
-        {
-            return CustomerUserContext.ResetPin(NewPin);
-        }
+        //public int ResetPin(int NewPin)
+        //{
+        //    return CustomerUserContext.ResetPin(NewPin);
+        //}
     }
 }

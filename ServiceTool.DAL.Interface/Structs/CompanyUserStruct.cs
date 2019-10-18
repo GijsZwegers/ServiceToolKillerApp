@@ -15,6 +15,17 @@ namespace ServiceTool.DAL.Interface
         public int Pin { get; set; }
         public DateTime DateOfBirth { get; set; }
 
+        public CompanyUserStruct(string firstname, string lastname, string email, bool isactive)
+        {
+            this.Id = 0;
+            this.CompanyId = 0; //TODO: goedmaken aan de hand van de response van de api
+            this.Pin = 0;       //""    ""
+            this.DateOfBirth = DateTime.Now;
+            this.Name = firstname + " " + lastname;
+            this.Mail = email;
+            this.IsActive = isactive;
+        }
+
         public CompanyUserStruct(int id, string name, bool isActive, string mail, int companyId, int pin, DateTime dateOfBirth)
         {
             this.Id = id;

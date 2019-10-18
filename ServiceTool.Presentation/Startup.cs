@@ -60,11 +60,12 @@ namespace ServiceTool.Presentation
             //SqlContext
             services.AddScoped<ICaseContext, CaseSQLContext>();
             services.AddScoped<ICaseStatusContext, CaseStatusSQLContext>();
-            services.AddScoped<DAL.ContextInterfaces.IServiceUserContext, ServiceUserSQLContext>();
-            services.AddScoped<ICustomerUserContext, CustomerUserSQLContext>();
+            services.AddScoped<IServiceUserContext, ServiceUserSQLContext>();
+            services.AddScoped<IServiceUserContext, CustomerUserSQLContext>();
             //HttpClient
             //services.AddHttpClient<IServiceUserContext, UserApiContext>();
             services.AddHttpClient<IUserContext, UserApiContext>();
+            services.AddHttpClient<IAdminUserContext, UserApiContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -29,12 +29,15 @@ namespace ServiceTool.Logic
             this.CompanyId = UserStruct.CompanyId;
         }
 
-        public CompanyUser(Task<AdminUserStruct> task)
+        public CompanyUser(Task<CompanyUserStruct> task)
         {
-            this.Name = task.Result.Name;
-            this.LastName = task.Result.LastName;
+            this.Id = task.Result.Id;
             this.Mail = task.Result.Mail;
+            this.Name = task.Result.Name;
             this.IsActive = task.Result.IsActive;
+            this.DateOfBirth = task.Result.DateOfBirth;
+            this.Pin = task.Result.Pin;
+            this.CompanyId = task.Result.CompanyId;
         }
 
         public override bool LogOut()

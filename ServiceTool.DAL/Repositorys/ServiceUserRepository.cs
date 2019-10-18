@@ -4,7 +4,7 @@ using ServiceTool.DAL.Interface;
 
 namespace ServiceTool.DAL.Repositorys
 {
-    public class ServiceUserRepository : IServiceUser, IServiceUserCollection
+    public class ServiceUserRepository : IServiceUser, IAdminUserCollection
     {
         private ContextInterfaces.IServiceUserContext ServiceUserContext;
 

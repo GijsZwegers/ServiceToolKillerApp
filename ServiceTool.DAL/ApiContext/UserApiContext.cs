@@ -12,7 +12,7 @@ using ServiceTool.DAL.Model.Json;
 
 namespace ServiceTool.DAL.ApiContext
 {
-    public class UserApiContext : IUserContext
+    public class UserApiContext : IUserContext, IAdminUserContext
     {
         private readonly HttpClient _httpClient;
         //private readonly string _remoteServiceBaseUrl; TODO: make use of this (set it in startup)
@@ -27,25 +27,11 @@ namespace ServiceTool.DAL.ApiContext
             _httpClient = httpClient;
         }
 
-        public async Task<string> ApiLoginAsync(string Username, string Password)
-        {
-            var test = new Dictionary<string, string>
-             {
-                { "username", Username },
-                { "password", Password }
-            };
-
-            var response = await _httpClient.PostAsync(Apiurl + "/integration/customer/token", JSONHelper.ToJson(test));
-            var responseString = await response.Content.ReadAsStringAsync();
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", responseString.Replace('"', ' ').Trim());
-            return responseString;
-        }
-
-        async Task<AdminUserStruct> ApiGetCustomerAsync()
+        public async Task<CompanyUserStruct> ApiGetCompanyuserAsync()
         {
             var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
             var cms =  JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
-            return new AdminUserStruct(
+            return new CompanyUserStruct(
                 cms.firstname,
                 cms.lastname,
                 cms.email,
@@ -53,30 +39,13 @@ namespace ServiceTool.DAL.ApiContext
                 );
         }
 
-        //public async Task<Customer> ApiGetCustomerAsync()
-        //{
-        //    var response = await _httpClient.GetAsync(Apiurl + "/integration/customer/token");
-        //    return JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
-        //}
-
-        async Task<AdminUserStruct> IUserContext.ApiGetCustomerAsync()
-        {
-            var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
-            var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
-            return new AdminUserStruct(
-                cms.firstname,
-                cms.lastname,
-                cms.email,
-                true
-                );
-        }
-
-        public async Task<string> ApiLoginAsync(string Mail, string Password, int Pin)
+        public async Task<string> ApiGetCompanyUserToken(string Mail, string Password, int? Pin)
         {
             var test = new Dictionary<string, string>
              {
                 { "username", Mail },
-                { "password", Password }
+                { "password", Password },
+                { "pin", Pin.ToString() }
             };
 
             var response = await _httpClient.PostAsync(Apiurl + "/integration/customer/token", JSONHelper.ToJson(test));
@@ -94,5 +63,32 @@ namespace ServiceTool.DAL.ApiContext
         {
             throw new NotImplementedException();
         }
+
+        public async Task<CompanyUserStruct> ApiGetCustomerTokenAsync()
+        {
+            var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
+            var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
+            return new CompanyUserStruct(
+                cms.firstname,
+                cms.lastname,
+                cms.email,
+                true
+                );
+        }
+
+        public Task<string> ApiGetAdminTokenAsync(string UserName, string Password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<AdminUserStruct> ApiGetAdminAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public Task<CompanyUserStruct> ApiGetCompanyUser()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

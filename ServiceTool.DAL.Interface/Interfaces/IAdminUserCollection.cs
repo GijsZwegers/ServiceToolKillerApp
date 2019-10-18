@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ServiceTool.DAL.Interface
 {
-    public interface IServiceUserCollection
+    public interface IAdminUserCollection
     {
         AdminUserStruct GetServiceUser(string email);
         AdminUserStruct Register(string name, string email, string password);

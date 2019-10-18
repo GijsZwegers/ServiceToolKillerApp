@@ -3,30 +3,51 @@ using ServiceTool.DAL.Interface;
 using BCrypt.Net;
 using ServiceTool.DAL.ContextInterfaces;
 using System.Threading.Tasks;
+using System;
 
 namespace ServiceTool.Logic
 {
-    public class AdminrUserCollection
+    public class AdminUserCollection
     {
         //public static IServiceUserCollection ServiceUserCollection { get; set; } = UserFactory.CreateServiceCollection();
 
-        private readonly DAL.ContextInterfaces.IUserContext _serviceUserContext;
+        private readonly DAL.ContextInterfaces.IAdminUserContext _adminUserContext;
 
-        public AdminrUserCollection(DAL.ContextInterfaces.IUserContext serviceUserContext)
+        public AdminUserCollection(DAL.ContextInterfaces.IAdminUserContext adminUserContext)
         {
-            _serviceUserContext = serviceUserContext;
+            _adminUserContext = adminUserContext;
         }
 
         async public Task<string> GetUserTokenAsync(string username, string password)
         {
-            var test = await _serviceUserContext.ApiLoginAsync(username, password);
+            var test = await _adminUserContext.ApiGetAdminTokenAsync(username, password);
             return test.ToString();
         }
 
         async public Task<AdminUser> getCustomerAsync()
         {
-           return new AdminUser(await _serviceUserContext.ApiGetCustomerAsync());
+           return new AdminUser(await _adminUserContext.ApiGetAdminAsync());
         }
+
+        public async Task<AdminUser> Login(string mail, string password)
+        {
+            if (password == null)
+            {
+                throw new ArgumentNullException(nameof(password));
+            }
+
+            await _adminUserContext.ApiGetAdminTokenAsync(mail, password);
+
+            AdminUser adminUser  = new AdminUser();
+
+            adminUser = new AdminUser(await _adminUserContext.ApiGetAdminAsync());
+
+            //string hash = _CustomerUserContext.GetCustomerUserHashedPassword(mail);
+
+            return adminUser;
+        }
+
+
 
         //public ServiceUser Login(string mail, string password)
         //{

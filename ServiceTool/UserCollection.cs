@@ -22,15 +22,15 @@ namespace ServiceTool.Logic
                 throw new ArgumentNullException(nameof(password));
             }
 
-            AdminUser customerUser = new AdminUser();
+            CompanyUser companyUser = new CompanyUser();
 
             //Set OAuth1 token in the session. 
             await _UserContext.ApiLoginAsync(mail, password);
 
-            var test = await _UserContext.ApiGetCustomerAsync();
-            customerUser = new AdminUser(test);
+            var test = await _UserContext.ApiGetCustomerTokenAsync();
+            companyUser = new CompanyUser(test);
 
-            return customerUser;
+            return companyUser;
         }
     }
 }
