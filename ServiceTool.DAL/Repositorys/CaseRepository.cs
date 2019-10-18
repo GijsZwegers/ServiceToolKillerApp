@@ -1,8 +1,5 @@
 ﻿using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ServiceTool.DAL.Repositorys
 {
@@ -10,11 +7,8 @@ namespace ServiceTool.DAL.Repositorys
     {
         private ICaseContext CaseContext;
 
-        private readonly DatabaseConnection _connection;
-
-        public CaseRepository(ICaseContext caseContext /*, DatabaseConnection connection*/)
+        public CaseRepository(ICaseContext caseContext)
         {
-            //_connection = connection;
             CaseContext = caseContext;
         }
 

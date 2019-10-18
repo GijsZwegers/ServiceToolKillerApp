@@ -7,18 +7,18 @@ namespace ServiceTool.DAL.Repositorys
     {
         private ICustomerUserContext CustomerUserContext;
 
-        private readonly DatabaseConnection _connection;
+        //private readonly DatabaseConnection _connection;
 
-        public CustomerUserRepository(DatabaseConnection connection)
-        {
-            _connection = connection;
-        }
+        //public CustomerUserRepository(DatabaseConnection connection)
+        //{
+        //    _connection = connection;
+        //}
 
-        public CustomerUserRepository(ICustomerUserContext customerUserContext, DatabaseConnection connection)
-        {
-            CustomerUserContext = customerUserContext;
-            _connection = connection;
-        }
+        //public CustomerUserRepository(ICustomerUserContext customerUserContext, DatabaseConnection connection)
+        //{
+        //    CustomerUserContext = customerUserContext;
+        //    _connection = connection;
+        //}
 
         public CustomerUserRepository(ICustomerUserContext customerUserContext)
         {

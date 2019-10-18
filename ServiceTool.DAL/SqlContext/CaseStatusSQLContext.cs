@@ -12,13 +12,13 @@ namespace ServiceTool.DAL.SqlContext
 
         private readonly DatabaseConnection _connection;
 
+        public CaseStatusSQLContext()
+        {}
+
         public CaseStatusSQLContext(DatabaseConnection connection)
         {
             _connection = connection;
         }
-
-        public CaseStatusSQLContext()
-        {}
 
         public List<CaseStatusStruct> GetAll()
         {
@@ -39,7 +39,6 @@ namespace ServiceTool.DAL.SqlContext
                         ));
                 }
             }
-
             _connection.SqlConnection.Close();
 
             return caseStatusStructs;

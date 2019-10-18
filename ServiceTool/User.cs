@@ -11,7 +11,5 @@ namespace ServiceTool.Logic
 
         public abstract bool LogOut();
         public abstract bool SetToInactive();
-
-
     }
 }

@@ -1,13 +1,10 @@
 ﻿using ServiceTool.DAL.ContextInterfaces;
 using ServiceTool.DAL.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ServiceTool.DAL.Repositorys
 {
-    public class UserRepository : Interface.IUserCollectionDAL
+    public class UserRepository : IUserCollectionDAL
     {
         private IUserContext UserContext;
 
@@ -16,24 +13,24 @@ namespace ServiceTool.DAL.Repositorys
             UserContext = userContext;
         }
 
-        public Task<ServiceUserStruct> ApiGetCustomerAsync()
+        public async Task<ServiceUserStruct> ApiGetCustomerAsync()
         {
-            throw new NotImplementedException();
+            return await UserContext.ApiGetCustomerAsync();
         }
 
-        public Task<string> ApiLoginAdminAsync(string Mail, string Password)
+        public async Task<string> ApiLoginAdminAsync(string Mail, string Password)
         {
-            throw new NotImplementedException();
+            return await UserContext.ApiLoginAdminAsync(Mail, Password);
         }
 
-        public Task<string> ApiLoginAsync(string Mail, string Password)
+        public async Task<string> ApiLoginAsync(string Mail, string Password)
         {
-            throw new NotImplementedException();
+            return await UserContext.ApiLoginAsync(Mail, Password);
         }
 
-        public Task<string> ApiLoginAsync(string Mail, string Password, int Pin)
+        public async Task<string> ApiLoginAsync(string Mail, string Password, int Pin)
         {
-            throw new NotImplementedException();
+            return await UserContext.ApiLoginAsync(Mail, Password, Pin);
         }
     }
 }

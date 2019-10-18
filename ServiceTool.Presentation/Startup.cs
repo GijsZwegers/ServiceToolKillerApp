@@ -64,7 +64,7 @@ namespace ServiceTool.Presentation
             services.AddScoped<ICustomerUserContext, CustomerUserSQLContext>();
             //HttpClient
             //services.AddHttpClient<IServiceUserContext, UserApiContext>();
-            services.AddHttpClient<DAL.Interface.IUserCollectionDAL, UserApiContext>();
+            services.AddHttpClient<IUserContext, UserApiContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

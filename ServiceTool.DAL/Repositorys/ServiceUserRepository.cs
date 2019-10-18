@@ -8,7 +8,7 @@ namespace ServiceTool.DAL.Repositorys
     {
         private ContextInterfaces.IServiceUserContext ServiceUserContext;
 
-        public ServiceUserRepository(ContextInterfaces.IServiceUserContext serviceUserContext) 
+        public ServiceUserRepository(IServiceUserContext serviceUserContext) 
         {
             ServiceUserContext = serviceUserContext;
         }

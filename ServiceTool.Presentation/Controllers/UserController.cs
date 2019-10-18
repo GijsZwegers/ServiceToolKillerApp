@@ -20,9 +20,9 @@ namespace ServiceTool.Presentation.Controllers
         private ServerUserCollection serverUserCollection;
         private CustomerUserCollection customerUserCollection;
 
-        public UserController(IServiceUserContext serviceUserContext, ICustomerUserContext customerUserContext)
+        public UserController(IUserContext userContext, ICustomerUserContext customerUserContext)
         {
-            serverUserCollection = new ServerUserCollection(serviceUserContext);
+            serverUserCollection = new ServerUserCollection(userContext);
             customerUserCollection = new CustomerUserCollection(customerUserContext);
         }
 
@@ -159,7 +159,7 @@ namespace ServiceTool.Presentation.Controllers
                 return View(model);
             }
 
-            ServiceUser serviceUser = serverUserCollection.Register(model.Email, model.Password, model.Name, model.LastName);
+            //ServiceUser serviceUser = serverUserCollection.Register(model.Email, model.Password, model.Name, model.LastName);
 
             //ServiceUser serviceUser = new ServiceUser(_serviceUserContect.Login(model.Email, model.Password));
 

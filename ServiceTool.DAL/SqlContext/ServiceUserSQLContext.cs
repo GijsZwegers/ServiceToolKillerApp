@@ -9,17 +9,17 @@ using ServiceTool.DAL.Model.Json;
 
 namespace ServiceTool.DAL.SqlContext
 {
-    public class ServiceUserSQLContext : IServiceUserContext
+    public class ServiceUserSQLContext : ContextInterfaces.IServiceUserContext
     {
         private readonly DatabaseConnection _connection;
+
+        public ServiceUserSQLContext()
+        {}
 
         public ServiceUserSQLContext(DatabaseConnection connection)
         {
             _connection = connection;
         }
-
-        public ServiceUserSQLContext()
-        {}
 
         public string GetServiceUserHashedPassword(string email)
         {
@@ -113,6 +113,7 @@ namespace ServiceTool.DAL.SqlContext
             }
 
             _connection.SqlConnection.Close();
+
             _connection.SqlConnection.Open();
 
             var sqlcmd2 = new SqlCommand("" +
@@ -169,5 +170,12 @@ namespace ServiceTool.DAL.SqlContext
         {
             throw new NotImplementedException();
         }
+
+        //async Task<ServiceUserStruct> ContextInterfaces.IUserCollectionDAL.ApiGetCustomerAsync()
+        //{
+        //    //var response = await _httpClient.GetAsync(Apiurl + "/integration/customer/token");
+        //    //var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
+        //    return new ServiceUserStruct();
+        //}
     }
 }

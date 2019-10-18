@@ -16,13 +16,14 @@ namespace ServiceTool.DAL.SqlContext
         /// <param name="CustomerUser"></param>
         /// 
 
-        const string connectionstring = @"Data Source=DESKTOPTHINKPAD;Initial Catalog=ServiceTool;Integrated Security=True";
+        private readonly DatabaseConnection _connection;
 
-        private SqlConnection conn;
+        public CompanySQLContext()
+        {}
 
-        private SqlConnection GetConnection()
+        public CompanySQLContext(DatabaseConnection connection)
         {
-            return conn = new SqlConnection(connectionstring);
+            _connection = connection;
         }
 
         public void DeleteCustomerUserForCompany(int CompanyId, CustomerUserStruct CustomerUser)
@@ -30,33 +31,30 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-
         public List<CaseStruct> GetCasesForCompany(int CompanyId)
         {
             List<CaseStruct> cases = new List<CaseStruct>();
-            using (GetConnection())
+            _connection.SqlConnection.Open();
+            var cmd = new SqlCommand("SELECT " +
+                "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] [Case].[idCase] " +
+                "FROM [Case], [Case].[LastEdited] INNER JOIN CaseStatus ON " +
+                "[Case].[idCaseStatus] = [CaseStatus].[idCaseStatus] WHERE [Case].[idCompany] ="+ CompanyId);
+
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
             {
-                string query = "SELECT " +
-                    "[Case].[CaseNumber], [CaseStatus].[Description], [Case].[Comment], [Case].[Active] [Case].[idCase] " +
-                    "FROM [Case], [Case].[LastEdited] INNER JOIN CaseStatus ON " +
-                    "[Case].[idCaseStatus] = [CaseStatus].[idCaseStatus] WHERE [Case].[idCompany] ="+ CompanyId;
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        cases.Add(new CaseStruct(
-                            reader.GetInt32(0),
-                            reader.GetString(1),
-                            new CaseStatusStruct(reader.GetString(2)),
-                            reader.GetString(3),
-                            reader.GetBoolean(4),
-                            reader.GetDateTime(5)));
-                    }
-                    conn.Close();
-                }
+                cases.Add(new CaseStruct(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    new CaseStatusStruct(reader.GetString(2)),
+                    reader.GetString(3),
+                    reader.GetBoolean(4),
+                    reader.GetDateTime(5)));
             }
+
+            _connection.SqlConnection.Close();
+
             return cases;
         }
 
@@ -68,31 +66,29 @@ namespace ServiceTool.DAL.SqlContext
         public List<CustomerUserStruct> GetCustomerUsersForCompany(int CompanyId)
         {
             List<CustomerUserStruct> customers = new List<CustomerUserStruct>();
-            using (GetConnection())
-            {
-                string query = "SELECT " +
+            _connection.SqlConnection.Open();
+
+            var cmd = new SqlCommand("SELECT " +
                     "[Customer].[idCustomerUser] [Customer].[Name], [Customer].[Active], [Case].[idCompany], [Customer].[Mail]" +
                     "FROM [Customer]  INNER JOIN ON " +
-                    "[Customer].[idCompany] = [Company].[idCompany]  WHERE [Case].[idCompany] =" + CompanyId;
-                conn.Open();
-                SqlCommand command = new SqlCommand(query, conn);
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        customers.Add(new CustomerUserStruct(
-                            reader.GetInt32(0),
-                            reader.GetString(1),
-                            reader.GetBoolean(2),
-                            reader.GetString(3),
-                            reader.GetInt32(4),
-                            reader.GetInt32(5),
-                            reader.GetDateTime(6)
-                            ));
-                    }
-                    conn.Close();
-                }
+                    "[Customer].[idCompany] = [Company].[idCompany]  WHERE [Case].[idCompany] = @companyid");
+            cmd.Parameters.Add(new SqlParameter("companyid", CompanyId));
+            var reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                customers.Add(new CustomerUserStruct(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetBoolean(2),
+                    reader.GetString(3),
+                    reader.GetInt32(4),
+                    reader.GetInt32(5),
+                    reader.GetDateTime(6)
+                    ));
             }
+            _connection.SqlConnection.Close();
+
             return customers;
         }
 

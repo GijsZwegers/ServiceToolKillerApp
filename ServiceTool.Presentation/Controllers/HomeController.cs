@@ -23,9 +23,9 @@ namespace ServiceTool.Presentation.Controllers
         private ServerUserCollection serverUserCollection;
         private CaseCollection CaseCollection;
 
-        public HomeController(IServiceUserContext serviceusercontext, ICaseContext caseContext)
+        public HomeController(IUserContext usercontext, ICaseContext caseContext)
         {
-            serverUserCollection = new ServerUserCollection(serviceusercontext);
+            serverUserCollection = new ServerUserCollection(usercontext);
             Case = new Logic.Case(caseContext);
             CaseCollection = new CaseCollection(caseContext);
         }
@@ -54,10 +54,10 @@ namespace ServiceTool.Presentation.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
-            serverUserCollection.GetUserTokenAsync("gijszwegers", "Austerlorp1");
-            return View();
+            await serverUserCollection.GetUserTokenAsync("gijszwegers", "Austerlorp1");
+            return await Task.Run(() => View());
         }
 
         [AuthorizeRoles(Role.User, Role.Admin)]

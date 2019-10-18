@@ -24,9 +24,14 @@ namespace ServiceTool.Logic
             this.IsActive = serviceUserStruct.IsActive;
         }
 
+        //Testen
         public ServiceUser(Task<ServiceUserStruct> task)
         {
-            this.task = task;
+            //this.task = task;
+            this.Name = task.Result.Name;
+            this.LastName = task.Result.LastName;
+            this.Mail = task.Result.Mail;
+            this.IsActive = task.Result.IsActive;
         }
 
         public override bool LogOut()

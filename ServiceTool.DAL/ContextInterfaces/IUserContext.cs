@@ -12,5 +12,6 @@ namespace ServiceTool.DAL.ContextInterfaces
         Task<string> ApiLoginAsync(string Mail, string Password);
         Task<string> ApiLoginAsync(string Mail, string Password, int Pin);
         Task<string> ApiLoginAdminAsync(string Mail, string Password);
+        Task<string> ApiLoginAdminAsync();
     }
 }

@@ -10,9 +10,9 @@ namespace ServiceTool.Logic
     {
         //public static IServiceUserCollection ServiceUserCollection { get; set; } = UserFactory.CreateServiceCollection();
 
-        private readonly DAL.ContextInterfaces.IServiceUserContext _serviceUserContext;
+        private readonly DAL.ContextInterfaces.IUserContext _serviceUserContext;
 
-        public ServerUserCollection(DAL.ContextInterfaces.IServiceUserContext serviceUserContext)
+        public ServerUserCollection(DAL.ContextInterfaces.IUserContext serviceUserContext)
         {
             _serviceUserContext = serviceUserContext;
         }
@@ -28,23 +28,23 @@ namespace ServiceTool.Logic
            return new ServiceUser(await _serviceUserContext.ApiGetCustomerAsync());
         }
 
-        public ServiceUser Login(string mail, string password)
-        {
-            string hash = _serviceUserContext.GetServiceUserHashedPassword(mail);
-            //Encrypt
-            if(!BCrypt.Net.BCrypt.Verify(password, hash))
-            {
-                return null;
-            }
-            return new ServiceUser(_serviceUserContext.GetServiceUser(mail));
-        }
+        //public ServiceUser Login(string mail, string password)
+        //{
+        //    string hash = _serviceUserContext.GetServiceUserHashedPassword(mail);
+        //    //Encrypt
+        //    if(!BCrypt.Net.BCrypt.Verify(password, hash))
+        //    {
+        //        return null;
+        //    }
+        //    return new ServiceUser(_serviceUserContext.GetServiceUser(mail));
+        //}
 
-        public ServiceUser Register(string mail, string password, string name, string lastname)
-        {
-             password = BCrypt.Net.BCrypt.HashPassword(password);
+        //public ServiceUser Register(string mail, string password, string name, string lastname)
+        //{
+        //     password = BCrypt.Net.BCrypt.HashPassword(password);
 
-            return new ServiceUser(_serviceUserContext.Register(name, lastname, mail, password));
-        }
+        //    return new ServiceUser(_serviceUserContext.Register(name, lastname, mail, password));
+        //}
 
     }
 }

@@ -15,7 +15,8 @@ namespace ServiceTool.DAL.ApiContext
     public class UserApiContext : IUserContext
     {
         private readonly HttpClient _httpClient;
-        //private readonly string _remoteServiceBaseUrl;
+        //private readonly string _remoteServiceBaseUrl; TODO: make use of this (set it in startup)
+
         private readonly string Apiurl = "http://127.0.0.1/magento/index.php/rest/V1";
 
         public UserApiContext()
@@ -58,54 +59,30 @@ namespace ServiceTool.DAL.ApiContext
         //    return JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
         //}
 
-        public int GetPin()
+        async Task<ServiceUserStruct> IUserContext.ApiGetCustomerAsync()
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
+            var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
+            return new ServiceUserStruct(
+                cms.firstname,
+                cms.lastname,
+                cms.email,
+                true
+                );
         }
 
-        public int GetPinForCustomer(int CustomerId)
+        public async Task<string> ApiLoginAsync(string Mail, string Password, int Pin)
         {
-            throw new NotImplementedException();
-        }
+            var test = new Dictionary<string, string>
+             {
+                { "username", Mail },
+                { "password", Password }
+            };
 
-        public ServiceUserStruct GetServiceUser(string Email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetServiceUserHashedPassword(string Email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Logout()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ServiceUserStruct Register(string Name, string lastname, string Email, string Password)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ResetPin(int NewPin)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SetToInactive()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<string> ApiLoginAsync(string Mail, string Password, int Pin)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<ServiceUserStruct> IUserContext.ApiGetCustomerAsync()
-        {
-            throw new NotImplementedException();
+            var response = await _httpClient.PostAsync(Apiurl + "/integration/customer/token", JSONHelper.ToJson(test));
+            var responseString = await response.Content.ReadAsStringAsync();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", responseString.Replace('"', ' ').Trim());
+            return responseString;
         }
 
         public Task<string> ApiLoginAdminAsync(string Mail, string Password)

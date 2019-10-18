@@ -10,19 +10,16 @@ namespace ServiceTool.DAL.SqlContext
 {
     public class CaseSQLContext : ICaseContext
     {
-        /// <summary>
-        /// Not yet implemented
-        /// </summary>
-
+      
         private readonly DatabaseConnection _connection;
+
+        public CaseSQLContext()
+        {}
 
         public CaseSQLContext(DatabaseConnection connection)
         {
             _connection = connection;
         }
-
-        public CaseSQLContext()
-        {}
 
         public void Close(string CaseNumber)
         {
