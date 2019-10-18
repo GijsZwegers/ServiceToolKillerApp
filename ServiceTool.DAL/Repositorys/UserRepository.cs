@@ -13,7 +13,7 @@ namespace ServiceTool.DAL.Repositorys
             UserContext = userContext;
         }
 
-        public async Task<ServiceUserStruct> ApiGetCustomerAsync()
+        public async Task<AdminUserStruct> ApiGetCustomerAsync()
         {
             return await UserContext.ApiGetCustomerAsync();
         }

@@ -16,7 +16,7 @@ namespace ServiceTool.Logic
             throw new NotImplementedException();
         }
 
-        public List<CustomerUser> GetCustomerUsers()
+        public List<CompanyUser> GetCustomerUsers()
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@ namespace ServiceTool.Logic
             throw new NotImplementedException();
         }
 
-        public CustomerUser GetCustomerUserById(int id)
+        public CompanyUser GetCustomerUserById(int id)
         {
             throw new NotImplementedException();
         }

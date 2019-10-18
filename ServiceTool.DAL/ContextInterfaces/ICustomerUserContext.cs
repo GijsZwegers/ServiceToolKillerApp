@@ -11,6 +11,6 @@ namespace ServiceTool.DAL.ContextInterfaces
         int GetPin();
         bool Login();
         bool Logout();
-        CustomerUserStruct GetCustomerUser(string mail, string password);
+        CompanyUserStruct GetCustomerUser(string mail, string password);
     }
 }

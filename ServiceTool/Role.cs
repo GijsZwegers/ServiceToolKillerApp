@@ -7,6 +7,7 @@ namespace ServiceTool.Logic
     public static class Role
     {
         public const string Admin = "Service Medewerker";
+        public const string CompanyUser = "Installateur leidinggevende";
         public const string User = "Installateur";
     }
 }

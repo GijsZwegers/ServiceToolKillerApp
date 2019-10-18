@@ -20,12 +20,12 @@ namespace ServiceTool.Presentation.Controllers
     public class HomeController : Controller
     {
         private Logic.Case Case;
-        private ServerUserCollection serverUserCollection;
+        private AdminrUserCollection serverUserCollection;
         private CaseCollection CaseCollection;
 
         public HomeController(IUserContext usercontext, ICaseContext caseContext)
         {
-            serverUserCollection = new ServerUserCollection(usercontext);
+            serverUserCollection = new AdminrUserCollection(usercontext);
             Case = new Logic.Case(caseContext);
             CaseCollection = new CaseCollection(caseContext);
         }

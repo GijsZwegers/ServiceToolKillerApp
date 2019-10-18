@@ -57,7 +57,7 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-        public ServiceUserStruct GetServiceUser(string Email)
+        public AdminUserStruct GetServiceUser(string Email)
         {
             _connection.SqlConnection.Open();
 
@@ -70,11 +70,11 @@ namespace ServiceTool.DAL.SqlContext
 
             var reader = cmd.ExecuteReader();
 
-            ServiceUserStruct sus = new ServiceUserStruct();
+            AdminUserStruct sus = new AdminUserStruct();
 
             while(reader.Read())
             {
-                sus = new ServiceUserStruct(
+                sus = new AdminUserStruct(
                     reader.GetString(0),
                     reader.GetString(1),
                     reader.GetString(2),
@@ -93,7 +93,7 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-        public ServiceUserStruct Register(string Name, string LastName, string Email, string Password)
+        public AdminUserStruct Register(string Name, string LastName, string Email, string Password)
         {
             _connection.SqlConnection.Open();
 
@@ -104,7 +104,7 @@ namespace ServiceTool.DAL.SqlContext
             sqlcmd.Parameters.Add(new SqlParameter("password", Password));
 
             var reader = sqlcmd.ExecuteReader();
-            List<ServiceUserStruct> serviceUserStructs = new List<ServiceUserStruct>();
+            List<AdminUserStruct> serviceUserStructs = new List<AdminUserStruct>();
 
             decimal lastid = 0;
             while(reader.Read())
@@ -135,11 +135,11 @@ namespace ServiceTool.DAL.SqlContext
 
             reader = sqlcmd2.ExecuteReader();
 
-            ServiceUserStruct sus = new ServiceUserStruct();
+            AdminUserStruct sus = new AdminUserStruct();
 
             while (reader.Read())
             {
-                sus = new ServiceUserStruct(
+                sus = new AdminUserStruct(
                     reader.GetString(0),
                     reader.GetString(1),
                     reader.GetString(2),

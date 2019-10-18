@@ -28,7 +28,7 @@ namespace ServiceTool.DAL.Repositorys
             return ServiceUserContext.GetPinForCustomer(CustomerId);
         }
 
-        public ServiceUserStruct GetServiceUser(string email)
+        public AdminUserStruct GetServiceUser(string email)
         {
             return ServiceUserContext.GetServiceUser(email);
         }
@@ -38,7 +38,7 @@ namespace ServiceTool.DAL.Repositorys
             return ServiceUserContext.Logout();
         }
 
-        public ServiceUserStruct Register(string name, string email, string password)
+        public AdminUserStruct Register(string name, string email, string password)
         {
             throw new System.NotImplementedException();
         }

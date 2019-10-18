@@ -8,9 +8,9 @@ namespace ServiceTool.DAL.ContextInterfaces
     public interface ICompanyContext
     {
         List<CaseStruct> GetCasesForCompany(int CompanyId);
-        List<CustomerUserStruct> GetCustomerUsersForCompany(int CompanyId);
-        void DeleteCustomerUserForCompany(int CompanyId, CustomerUserStruct CustomerUser);
-        CustomerUserStruct NewCustomerUser(CustomerUserStruct NewCustomerUser);
-        CustomerUserStruct GetCustomerById(int id);
+        List<CompanyUserStruct> GetCustomerUsersForCompany(int CompanyId);
+        void DeleteCustomerUserForCompany(int CompanyId, CompanyUserStruct CustomerUser);
+        CompanyUserStruct NewCustomerUser(CompanyUserStruct NewCustomerUser);
+        CompanyUserStruct GetCustomerById(int id);
     }
 }

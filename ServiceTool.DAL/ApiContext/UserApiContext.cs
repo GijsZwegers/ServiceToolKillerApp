@@ -41,11 +41,11 @@ namespace ServiceTool.DAL.ApiContext
             return responseString;
         }
 
-        async Task<ServiceUserStruct> ApiGetCustomerAsync()
+        async Task<AdminUserStruct> ApiGetCustomerAsync()
         {
             var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
             var cms =  JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
-            return new ServiceUserStruct(
+            return new AdminUserStruct(
                 cms.firstname,
                 cms.lastname,
                 cms.email,
@@ -59,11 +59,11 @@ namespace ServiceTool.DAL.ApiContext
         //    return JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
         //}
 
-        async Task<ServiceUserStruct> IUserContext.ApiGetCustomerAsync()
+        async Task<AdminUserStruct> IUserContext.ApiGetCustomerAsync()
         {
             var response = await _httpClient.GetAsync(Apiurl + "/customers/me");
             var cms = JsonConvert.DeserializeObject<Customer>(await response.Content.ReadAsStringAsync());
-            return new ServiceUserStruct(
+            return new AdminUserStruct(
                 cms.firstname,
                 cms.lastname,
                 cms.email,
@@ -86,6 +86,11 @@ namespace ServiceTool.DAL.ApiContext
         }
 
         public Task<string> ApiLoginAdminAsync(string Mail, string Password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> ApiLoginAdminAsync()
         {
             throw new NotImplementedException();
         }

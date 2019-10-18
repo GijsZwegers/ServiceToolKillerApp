@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ServiceTool.DAL.Interface
 {
-    public struct ServiceUserStruct
+    public struct AdminUserStruct
     {
         public string Name { get; set; }
         public string LastName { get; set; }
@@ -13,7 +13,7 @@ namespace ServiceTool.DAL.Interface
 
         public string Password { get; set; }
 
-        public ServiceUserStruct(string name, string lastname, string mail,  string password, bool isactive)
+        public AdminUserStruct(string name, string lastname, string mail,  string password, bool isactive)
         {
             this.Name = name;
             this.LastName = lastname;
@@ -22,7 +22,7 @@ namespace ServiceTool.DAL.Interface
             this.Password = password;
         }
 
-        public ServiceUserStruct(string name, string lastname ,string mail, bool isactive)
+        public AdminUserStruct(string name, string lastname ,string mail, bool isactive)
         {
             this.Name = name;
             this.LastName = lastname;

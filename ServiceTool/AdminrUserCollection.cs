@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ServiceTool.Logic
 {
-    public class ServerUserCollection
+    public class AdminrUserCollection
     {
         //public static IServiceUserCollection ServiceUserCollection { get; set; } = UserFactory.CreateServiceCollection();
 
         private readonly DAL.ContextInterfaces.IUserContext _serviceUserContext;
 
-        public ServerUserCollection(DAL.ContextInterfaces.IUserContext serviceUserContext)
+        public AdminrUserCollection(DAL.ContextInterfaces.IUserContext serviceUserContext)
         {
             _serviceUserContext = serviceUserContext;
         }
@@ -23,9 +23,9 @@ namespace ServiceTool.Logic
             return test.ToString();
         }
 
-        async public Task<ServiceUser> getCustomerAsync()
+        async public Task<AdminUser> getCustomerAsync()
         {
-           return new ServiceUser(await _serviceUserContext.ApiGetCustomerAsync());
+           return new AdminUser(await _serviceUserContext.ApiGetCustomerAsync());
         }
 
         //public ServiceUser Login(string mail, string password)
@@ -45,6 +45,5 @@ namespace ServiceTool.Logic
 
         //    return new ServiceUser(_serviceUserContext.Register(name, lastname, mail, password));
         //}
-
     }
 }

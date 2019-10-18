@@ -17,19 +17,15 @@ namespace ServiceTool.Presentation.Controllers
     public class UserController : Controller
     {
 
-        private ServerUserCollection serverUserCollection;
-        private CustomerUserCollection customerUserCollection;
+        private AdminrUserCollection _serverUserCollection;
+        private CompanyUserCollection _customerUserCollection;
+        private UserCollection _userCollection;
+
 
         public UserController(IUserContext userContext, ICustomerUserContext customerUserContext)
         {
-            serverUserCollection = new ServerUserCollection(userContext);
-            customerUserCollection = new CustomerUserCollection(customerUserContext);
-        }
-
-        [AllowAnonymous]
-        public IActionResult Index()
-        {
-            return View();
+            _customerUserCollection = new CompanyUserCollection(customerUserContext);
+            _userCollection = new UserCollection(userContext);
         }
 
         [AllowAnonymous]
@@ -52,9 +48,9 @@ namespace ServiceTool.Presentation.Controllers
         {
             // Lets first check if the Model is valid or not
             if (!ModelState.IsValid) return View(model);
-            await serverUserCollection.GetUserTokenAsync(model.Username, model.Password);
+            await _serverUserCollection.GetUserTokenAsync(model.Username, model.Password);
 
-            ServiceUser serviceuser =  await serverUserCollection.getCustomerAsync();
+            AdminUser serviceuser =  await _serverUserCollection.getCustomerAsync();
 
             //ServiceUser serviceuser = serverUserCollection.Login(model.Email, model.Password);
 
@@ -97,14 +93,18 @@ namespace ServiceTool.Presentation.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginCustomerUser(LoginCustomerViewModel model, string returnUrl)
+        public async Task<ActionResult> LoginCustomer(LoginCustomerViewModel model, string returnUrl)
         {
             // Lets first check if the Model is valid or not
             if (!ModelState.IsValid) return View(model);
 
+            await _serverUserCollection.GetUserTokenAsync(model.Email, model.Password);
+            AdminUser serviceUser = await _serverUserCollection.getCustomerAsync();
 
             //add function for when pin is filled in.
-            CustomerUser customeruser = customerUserCollection.Login(model.Email, model.Password);
+            CompanyUser customeruser = _customerUserCollection.Login(model.Email, model.Password);
+
+
 
             //TODO: Add code for Customer User
 
@@ -138,7 +138,6 @@ namespace ServiceTool.Presentation.Controllers
 
             return LocalRedirect(returnUrl);
         }
-
 
         [AuthorizeRoles(Roles = Role.Admin)]
         public IActionResult Register()

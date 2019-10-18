@@ -39,7 +39,7 @@ namespace ServiceTool.DAL.SqlContext
             throw new NotImplementedException();
         }
 
-        public CustomerUserStruct GetCustomerUser(string mail, string pin)
+        public CompanyUserStruct GetCustomerUser(string mail, string pin)
         {
             _connection.SqlConnection.Open();
 
@@ -53,11 +53,11 @@ namespace ServiceTool.DAL.SqlContext
 
             var reader = cmd.ExecuteReader();
 
-            CustomerUserStruct customerUserStruct = new CustomerUserStruct();
+            CompanyUserStruct customerUserStruct = new CompanyUserStruct();
 
             while (reader.Read())
             {
-                customerUserStruct = new CustomerUserStruct(
+                customerUserStruct = new CompanyUserStruct(
                     reader.GetInt32(0),    //id
                     reader.GetString(1),    //name
                     reader.GetBoolean(2),   //active

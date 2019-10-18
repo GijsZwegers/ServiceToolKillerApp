@@ -6,7 +6,7 @@ namespace ServiceTool.DAL.Interface.Interfaces
 {
     public interface ICustomerUserCollection
     {
-        CustomerUserStruct GetCustomerUser(string email);
-        CustomerUserStruct Register(string name, string email, string password);
+        CompanyUserStruct GetCustomerUser(string email);
+        CompanyUserStruct Register(string name, string email, string password);
     }
 }

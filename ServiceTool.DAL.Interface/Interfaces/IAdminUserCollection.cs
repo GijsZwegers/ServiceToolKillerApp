@@ -7,8 +7,8 @@ namespace ServiceTool.DAL.Interface
 {
     public interface IServiceUserCollection
     {
-        ServiceUserStruct GetServiceUser(string email);
-        ServiceUserStruct Register(string name, string email, string password);
+        AdminUserStruct GetServiceUser(string email);
+        AdminUserStruct Register(string name, string email, string password);
         //Task<string> ApiLoginAsync(string Username, string Password);
     }
 }

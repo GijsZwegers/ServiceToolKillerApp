@@ -15,7 +15,7 @@ namespace ServiceTool.DAL.Repositorys
             CompanyContext = companyContext;
         }
 
-        public void DeleteCustomerUserForCompany(int CompanyId, CustomerUserStruct CustomerUser)
+        public void DeleteCustomerUserForCompany(int CompanyId, CompanyUserStruct CustomerUser)
         {
             CompanyContext.DeleteCustomerUserForCompany(CompanyId, CustomerUser);
         }
@@ -25,17 +25,17 @@ namespace ServiceTool.DAL.Repositorys
             return CompanyContext.GetCasesForCompany(CompanyId);
         }
 
-        public CustomerUserStruct GetCustomerById(int id)
+        public CompanyUserStruct GetCustomerById(int id)
         {
             return CompanyContext.GetCustomerById(id);
         }
 
-        public List<CustomerUserStruct> GetCustomerUsersForCompany(int CompanyId)
+        public List<CompanyUserStruct> GetCustomerUsersForCompany(int CompanyId)
         {
             return CompanyContext.GetCustomerUsersForCompany(CompanyId);
         }
 
-        public CustomerUserStruct NewCustomerUser(CustomerUserStruct NewCustomerUser)
+        public CompanyUserStruct NewCustomerUser(CompanyUserStruct NewCustomerUser)
         {
             return CompanyContext.NewCustomerUser(NewCustomerUser);
         }

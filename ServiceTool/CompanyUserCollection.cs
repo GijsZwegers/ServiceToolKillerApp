@@ -5,25 +5,25 @@ using System.Text;
 
 namespace ServiceTool.Logic
 {
-    public class CustomerUserCollection
+    public class CompanyUserCollection
     {
         private readonly ICustomerUserContext _CustomerUserContext;
 
-        public CustomerUserCollection(ICustomerUserContext customerUserContext)
+        public CompanyUserCollection(ICustomerUserContext customerUserContext)
         {
             _CustomerUserContext = customerUserContext;
         }
 
-        public CustomerUser Login(string mail, string password)
+        public CompanyUser Login(string mail, string password)
         {
             if (password == null)
             {
                 throw new ArgumentNullException(nameof(password));
             }
 
-            CustomerUser customerUser = new CustomerUser();
+            CompanyUser customerUser = new CompanyUser();
 
-            customerUser = new CustomerUser(_CustomerUserContext.GetCustomerUser(mail, password));
+            customerUser = new CompanyUser(_CustomerUserContext.GetCustomerUser(mail, password));
 
             //string hash = _CustomerUserContext.GetCustomerUserHashedPassword(mail);
 

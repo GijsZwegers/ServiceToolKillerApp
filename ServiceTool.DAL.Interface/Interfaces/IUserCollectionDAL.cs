@@ -7,9 +7,9 @@ namespace ServiceTool.DAL.Interface
 {
     public interface IUserCollectionDAL
     {
-        Task<ServiceUserStruct> ApiGetCustomerAsync();
+        Task<AdminUserStruct> ApiGetCustomerAsync();
         Task<string> ApiLoginAsync(string Mail, string Password);
         Task<string> ApiLoginAsync(string Mail, string Password, int Pin);
-        Task<string> ApiLoginAdminAsync(string Mail, string Password);
+        Task<string> ApiLoginAdminAsync(string UserName, string Password);
     }
 }

@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace ServiceTool.Logic
 {
-    public class ServiceUser : User
+    public class AdminUser : User
     {
-        private Task<ServiceUserStruct> task;
+        //private Task<ServiceUserStruct> task;
 
         public override string Name { get; set; }
         public override string LastName { get; set; }
         public override string Mail { get; set; }
         public override bool IsActive { get; set; }
-        //public string Role { get; } = Role.
 
-        public ServiceUser(ServiceUserStruct serviceUserStruct)
+        public AdminUser()
+        {}
+
+        public AdminUser(AdminUserStruct serviceUserStruct)
         {
             this.Name = serviceUserStruct.Name;
             this.LastName = serviceUserStruct.LastName;
@@ -24,8 +26,7 @@ namespace ServiceTool.Logic
             this.IsActive = serviceUserStruct.IsActive;
         }
 
-        //Testen
-        public ServiceUser(Task<ServiceUserStruct> task)
+        public AdminUser(Task<AdminUserStruct> task)
         {
             //this.task = task;
             this.Name = task.Result.Name;
@@ -51,7 +52,7 @@ namespace ServiceTool.Logic
             throw new NotImplementedException();
         }
 
-        public List<CustomerUser> GetCustomerUsers()
+        public List<CompanyUser> GetCustomerUsers()
         {
             throw new NotImplementedException();
         }

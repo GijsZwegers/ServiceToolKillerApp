@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ServiceTool.DAL.Interface
 {
-    public struct CustomerUserStruct
+    public struct CompanyUserStruct
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace ServiceTool.DAL.Interface
         public int Pin { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        public CustomerUserStruct(int id, string name, bool isActive, string mail, int companyId, int pin, DateTime dateOfBirth)
+        public CompanyUserStruct(int id, string name, bool isActive, string mail, int companyId, int pin, DateTime dateOfBirth)
         {
             this.Id = id;
             this.Name = name;
@@ -26,7 +26,7 @@ namespace ServiceTool.DAL.Interface
             this.DateOfBirth = dateOfBirth;
         }
 
-        public CustomerUserStruct(int id, string name, bool isActive, string mail, int pin, DateTime dateOfBirth)
+        public CompanyUserStruct(int id, string name, bool isActive, string mail, int pin, DateTime dateOfBirth)
         {
             this.Id = id;
             this.Name = name;

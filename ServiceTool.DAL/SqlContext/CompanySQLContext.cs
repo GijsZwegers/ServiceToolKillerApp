@@ -26,7 +26,7 @@ namespace ServiceTool.DAL.SqlContext
             _connection = connection;
         }
 
-        public void DeleteCustomerUserForCompany(int CompanyId, CustomerUserStruct CustomerUser)
+        public void DeleteCustomerUserForCompany(int CompanyId, CompanyUserStruct CustomerUser)
         {
             throw new NotImplementedException();
         }
@@ -58,14 +58,14 @@ namespace ServiceTool.DAL.SqlContext
             return cases;
         }
 
-        public CustomerUserStruct GetCustomerById(int id)
+        public CompanyUserStruct GetCustomerById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<CustomerUserStruct> GetCustomerUsersForCompany(int CompanyId)
+        public List<CompanyUserStruct> GetCustomerUsersForCompany(int CompanyId)
         {
-            List<CustomerUserStruct> customers = new List<CustomerUserStruct>();
+            List<CompanyUserStruct> customers = new List<CompanyUserStruct>();
             _connection.SqlConnection.Open();
 
             var cmd = new SqlCommand("SELECT " +
@@ -77,7 +77,7 @@ namespace ServiceTool.DAL.SqlContext
 
             while (reader.Read())
             {
-                customers.Add(new CustomerUserStruct(
+                customers.Add(new CompanyUserStruct(
                     reader.GetInt32(0),
                     reader.GetString(1),
                     reader.GetBoolean(2),
@@ -92,7 +92,7 @@ namespace ServiceTool.DAL.SqlContext
             return customers;
         }
 
-        public CustomerUserStruct NewCustomerUser(CustomerUserStruct NewCustomerUser)
+        public CompanyUserStruct NewCustomerUser(CompanyUserStruct NewCustomerUser)
         {
             throw new NotImplementedException();
         }
